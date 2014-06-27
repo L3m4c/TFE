@@ -14,6 +14,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import service.BoarderService;
 import service.MealService;
 import service.UserService;
 
@@ -74,5 +75,9 @@ public class Application {
     @Bean
     public MealService getMealService() {
         return new MealService();
+    }
+    @Bean
+    public BoarderService getBoarderService() {
+        return new BoarderService();
     }
 }
