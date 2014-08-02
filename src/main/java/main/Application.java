@@ -16,6 +16,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import service.BoarderService;
 import service.MealService;
+import service.SwaddleService;
 import service.UserService;
 
 import javax.sql.DataSource;
@@ -79,5 +80,9 @@ public class Application {
     @Bean
     public BoarderService getBoarderService() {
         return new BoarderService();
+    }
+    @Bean
+    public SwaddleService getSwaddleService() {
+        return new SwaddleService();
     }
 }

@@ -26,4 +26,30 @@ public class BoarderService {
         return listBoarder;
     }
 
+    public BoarderDto findById(long id) {
+        return new BoarderDto(boarderRepository.findOne(id));
+    }
+
+    public void delete(long id) {
+        boarderRepository.delete(id);
+    }
+
+    public BoarderDto save(int chambre, String name , String surname) {
+        Boarder boarder = new Boarder();
+        boarder.setChambre(chambre);
+        boarder.setName(name);
+        boarder.setSurname(surname);
+        return new BoarderDto(boarderRepository.save(boarder));
+    }
+
+    public BoarderDto update(long id, int chambre, String name, String surname) {
+        Boarder boarder = boarderRepository.findOne(id);
+        if(id!=-1)
+            boarder.setChambre(chambre);
+        if(name != null)
+            boarder.setName(name);
+        if(surname != null)
+        boarder.setSurname(surname);
+        return new BoarderDto(boarderRepository.save(boarder));
+    }
 }
