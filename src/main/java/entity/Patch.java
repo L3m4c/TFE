@@ -1,24 +1,24 @@
 package entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
- * Created by Dams on 12/07/2014.
+ * Created by Dams on 4/08/2014.
  */
 @Entity
-public class Aerosol {
+public class Patch {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
-
-
-
-
-    private long time1;
-
     private Date date = new Date();
+    private Date dateStart;
+    private Date dateEnd;
+    private String doctor;
     private String nameMedic;
     private int dosage;
     private String unit;
@@ -31,16 +31,34 @@ public class Aerosol {
         this.id = id;
     }
 
-    public long getTime1() {return time1;}
-
-    public void setTime1 (long time1) {this.time1 = time1;}
-
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(String doctor) {
+        this.doctor = doctor;
+    }
+
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public Date getDateEnd() {return dateEnd;   }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
     }
 
     public String getNameMedic() {
@@ -66,5 +84,8 @@ public class Aerosol {
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
+
+
 
 }

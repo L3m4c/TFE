@@ -10,20 +10,20 @@ import java.util.Date;
 public class AerosolDto {
 
     private long id;
-    private long boarder;
-    private long user;
     private long time1;
     private Date date;
+    private String nameMedic;
+    private int dosage;
+    private String unit;
 
     public AerosolDto() {}
 
     public AerosolDto(Aerosol aerosol) {
         this.id = aerosol.getId();
-        if(aerosol.getBoarder() != null)
-            this.boarder = aerosol.getBoarder().getId();
-        if(aerosol.getUser() != null)
-            this.user = aerosol.getUser().getId();
         this.date = aerosol.getDate();
+        this.nameMedic = aerosol.getNameMedic();
+        this.dosage = aerosol.getDosage();
+        this.unit = aerosol.getUnit();
     }
 
     public long getId() {
@@ -32,22 +32,6 @@ public class AerosolDto {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getBoarder() {
-        return boarder;
-    }
-
-    public void setBoarder(long boarder) {
-        this.boarder = boarder;
-    }
-
-    public long getUser() {
-        return user;
-    }
-
-    public void setUser(long user) {
-        this.user = user;
     }
 
     public long getTime1() {
@@ -66,4 +50,25 @@ public class AerosolDto {
         this.date = date;
     }
 
+    public String getNameMedic() {
+        return nameMedic;
+    }
+
+    public void setNameMedic(String nameMedic) {this.nameMedic = nameMedic;}
+
+    public int getDosage() {
+        return dosage;
+    }
+
+    public void setDosage(int dosage) {
+        this.dosage = dosage;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
 }

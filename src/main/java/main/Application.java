@@ -14,10 +14,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
-import service.BoarderService;
-import service.MealService;
-import service.SwaddleService;
-import service.UserService;
+import service.*;
 
 import javax.sql.DataSource;
 
@@ -84,5 +81,13 @@ public class Application {
     @Bean
     public SwaddleService getSwaddleService() {
         return new SwaddleService();
+    }
+    @Bean
+    public AerosolService getAerosolService() {
+        return new AerosolService();
+    }
+    @Bean
+    public PatchService getPatchService() {
+        return new PatchService();
     }
 }
