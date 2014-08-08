@@ -1,7 +1,6 @@
 package service;
 
 import dto.PatchDto;
-import entity.AerosolRepository;
 import entity.Patch;
 import entity.PatchRepository;
 
@@ -18,9 +17,6 @@ public class PatchService {
 
     @Resource
     PatchRepository patchRepository;
-
-    @Resource
-    AerosolRepository aerosolRepository;
 
     public List<PatchDto> findAll() {
         Iterator i = patchRepository.findAll().iterator();

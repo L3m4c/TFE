@@ -90,4 +90,28 @@ public class Application {
     public PatchService getPatchService() {
         return new PatchService();
     }
+    @Bean
+    public InjectionService getInjectionService() {
+        return new InjectionService();
+    }
+    @Bean
+    public ObservationService getObservationService() {
+        return new ObservationService();
+    }
+    @Bean
+    public InsulinTakingService getInsulinTakingService() {
+        return new InsulinTakingService();
+    }
+    @Bean
+    public InsulinDosageService getInsulinDosageService() {
+        return new InsulinDosageService();
+    }
+    @Bean
+    public WoundService getWoundService() {
+        return new WoundService();
+    }
+    @Bean
+    public DrugTreatmentService getDrugTreatmentService() {
+        return new DrugTreatmentService();
+    }
 }
