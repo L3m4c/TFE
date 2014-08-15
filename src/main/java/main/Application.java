@@ -114,4 +114,68 @@ public class Application {
     public DrugTreatmentService getDrugTreatmentService() {
         return new DrugTreatmentService();
     }
+    @Bean
+    public TherapeuticService getTherapeuticService() {
+        return new TherapeuticService();
+    }
+    @Bean
+    public HygieneService getHygieneService() {
+        return new HygieneService();
+    }
+    @Bean
+    public ClothingService getClothingService() {
+        return new ClothingService();
+    }
+    @Bean
+    public MobilizationService getMobilizationService() {
+        return new MobilizationService();
+    }
+    @Bean
+    public ToiletHelpingService getToiletHelpingService() {
+        return new ToiletHelpingService();
+    }
+    @Bean
+    public IncontinenceService getIncontinenceService() {
+        return new IncontinenceService();
+    }
+    @Bean
+    public EatService getEatService() {
+        return new EatService();
+    }
+    @Bean
+    public ParameterService getParameterService() {
+        return new ParameterService();
+    }
+    @Bean
+    public DisorderService getDisorderService() {
+        return new DisorderService();
+    }
+    @Bean
+    public AspectService getAspectService() {
+        return new AspectService();
+    }
+    @Bean
+    public MeasureService getMeasureService() {
+        return new MeasureService();
+    }
+    @Bean
+    public EmbankmentService getEmbankmentService() {
+        return new EmbankmentService();
+    }
+    @Bean
+    public SurroundingSkinService getSurroundingSkinService() {
+        return new SurroundingSkinService();
+    }
+    @Bean
+    public TreatmentService getTreatmentService() {
+        return new TreatmentService();
+    }
+    @Bean
+    public BandageService getBandageService() {
+        return new BandageService();
+    }
+    @Bean
+    public DrugService getDrugService() {
+        return new DrugService();
+    }
 }
