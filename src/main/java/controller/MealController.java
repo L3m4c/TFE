@@ -19,7 +19,11 @@ public class MealController {
 
     @RequestMapping(value = "/meal", method = RequestMethod.POST)
     public MealDto create(@RequestParam(value="boarder", required = true) long idBoarder,
-                          @RequestParam(value="date", required = false) Date date){
+                          @RequestParam(value="date", required = false) Long dateMill){
+        Date date = new Date();
+        if(dateMill != null) {
+            date.setTime(dateMill);
+        }
         return mealService.save(idBoarder, date);
     }
 

@@ -8,12 +8,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import service.*;
 
 import javax.sql.DataSource;
@@ -22,10 +25,11 @@ import javax.sql.DataSource;
  * Created by Sl0th on 27/06/2014.
  */
 @Configuration
-@ImportResource("classpath:/spring/spring-security.xml")
-@ComponentScan("controller")
+@ImportResource({"classpath:/spring/spring-security.xml"})
+@ComponentScan({"controller", "filter"})
 @EnableAutoConfiguration(exclude = HibernateJpaVendorAdapter.class)
 @EnableJpaRepositories("entity")
+@EnableTransactionManagement
 public class Application {
 
     public static void main(String[] args) {
@@ -34,12 +38,10 @@ public class Application {
 
     @Bean
     public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/tfe");
-        dataSource.setUsername( "root" );
-        dataSource.setPassword( "" );
-        return dataSource;
+        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+        builder.setScriptEncoding("UTF-8");
+        builder.addScript("classpath:/init.sql");
+        return builder.setType(EmbeddedDatabaseType.H2).build();
     }
 
     @Bean
@@ -56,7 +58,7 @@ public class Application {
         HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
         hibernateJpaVendorAdapter.setShowSql(true);
         hibernateJpaVendorAdapter.setGenerateDdl(true);
-        hibernateJpaVendorAdapter.setDatabase(Database.MYSQL);
+        hibernateJpaVendorAdapter.setDatabase(Database.H2);
         return hibernateJpaVendorAdapter;
     }
 

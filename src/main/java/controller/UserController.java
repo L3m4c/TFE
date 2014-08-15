@@ -31,10 +31,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public UserDto create(@RequestParam(value="enabled", required = true) boolean enabled,
+    public UserDto create(@RequestParam(value="enabled", required = false, defaultValue = "true" ) boolean enabled,
                              @RequestParam(value="name", required = true) String name,
                              @RequestParam(value="password", required = true) String password,
-                             @RequestParam(value="role", required = true) String role,
+                             @RequestParam(value="role", required = false, defaultValue = "ROLE_USER" ) String role,
                              @RequestParam(value="surname", required = true) String surname,
                              @RequestParam(value="username", required = true) String username) {
         return userService.save(enabled, name, password, role, surname, username);

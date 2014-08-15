@@ -10,7 +10,7 @@ public class BoarderDto {
     private long id;
     private String name;
     private String surname;
-    private int chambre;
+    private int room;
 
     public BoarderDto() {}
 
@@ -18,7 +18,7 @@ public class BoarderDto {
         this.id = boarder.getId();
         this.name = boarder.getName();
         this.surname = boarder.getSurname();
-        this.chambre = boarder.getChambre();
+        this.room = boarder.getRoom();
     }
 
     public long getId() {
@@ -45,11 +45,11 @@ public class BoarderDto {
         this.surname = surname;
     }
 
-    public int getChambre() {
-        return chambre;
+    public int getRoom() {
+        return room;
     }
 
-    public void setChambre(int chambre) {
-        this.chambre = chambre;
+    public void setRoom(int room) {
+        this.room = room;
     }
 }

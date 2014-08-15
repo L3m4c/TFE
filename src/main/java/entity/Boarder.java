@@ -15,7 +15,7 @@ public class Boarder {
     private long id;
     private String name;
     private String surname;
-    private int chambre;
+    private int room;
 
     public long getId() {
         return id;
@@ -41,11 +41,11 @@ public class Boarder {
         this.surname = surname;
     }
 
-    public int getChambre() {
-        return chambre;
+    public int getRoom() {
+        return room;
     }
 
-    public void setChambre(int chambre) {
-        this.chambre = chambre;
+    public void setRoom(int room) {
+        this.room = room;
     }
 }

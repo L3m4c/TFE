@@ -36,7 +36,7 @@ public class BoarderService {
 
     public BoarderDto save(int chambre, String name , String surname) {
         Boarder boarder = new Boarder();
-        boarder.setChambre(chambre);
+        boarder.setRoom(chambre);
         boarder.setName(name);
         boarder.setSurname(surname);
         return new BoarderDto(boarderRepository.save(boarder));
@@ -45,7 +45,7 @@ public class BoarderService {
     public BoarderDto update(long id, int chambre, String name, String surname) {
         Boarder boarder = boarderRepository.findOne(id);
         if(id!=-1)
-            boarder.setChambre(chambre);
+            boarder.setRoom(chambre);
         if(name != null)
             boarder.setName(name);
         if(surname != null)

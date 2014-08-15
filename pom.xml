@@ -21,9 +21,9 @@
     </dependency>
     <!-- Spring Security -->
     <dependency>
-        <groupId>org.springframework.security</groupId>
-        <artifactId>spring-security-core</artifactId>
-    </dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-core</artifactId>
+</dependency>
 
     <dependency>
         <groupId>org.springframework.security</groupId>
@@ -57,19 +57,22 @@
         <artifactId>junit</artifactId>
         <version>4.11</version>
     </dependency>
+    <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+    </dependency>
 </dependencies>
 
 <build>
-    <plugins>
-        <plugin>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>2.3.2</version>
-        </plugin>
-        <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-        </plugin>
-    </plugins>
+<plugins>
+    <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+    </plugin>
+    <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+    </plugin>
+</plugins>
 </build>
 
 <repositories>

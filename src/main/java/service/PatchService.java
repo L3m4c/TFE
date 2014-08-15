@@ -3,6 +3,7 @@ package service;
 import dto.PatchDto;
 import entity.Patch;
 import entity.PatchRepository;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
