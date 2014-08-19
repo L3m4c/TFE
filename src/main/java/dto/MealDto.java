@@ -10,19 +10,19 @@ import java.util.Date;
 public class MealDto {
 
     private long id;
-    private long boarder;
-    private long user;
-    private Date date;
+    private BoarderDto boarder;
+    private UserDto user;
+    private long date;
 
     public MealDto() {}
 
     public MealDto(Meal meal) {
         this.id = meal.getId();
         if(meal.getBoarder() != null)
-            this.boarder = meal.getBoarder().getId();
+            this.boarder = new BoarderDto(meal.getBoarder());
         if(meal.getUser() != null)
-            this.user = meal.getUser().getId();
-        this.date = meal.getDate();
+            this.user = new UserDto(meal.getUser());
+        this.date = meal.getDate().getTime();
     }
 
     public long getId() {
@@ -33,27 +33,27 @@ public class MealDto {
         this.id = id;
     }
 
-    public long getBoarder() {
+    public BoarderDto getBoarder() {
         return boarder;
     }
 
-    public void setBoarder(long boarder) {
+    public void setBoarder(BoarderDto boarder) {
         this.boarder = boarder;
     }
 
-    public long getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(long user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
     }
 }
