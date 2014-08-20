@@ -1,11 +1,15 @@
 package service;
 
 import dto.InsulinDosageDto;
+import entity.BoarderRepository;
 import entity.InsulinDosage;
 import entity.InsulinDosageRepository;
+import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,6 +20,10 @@ public class InsulinDosageService {
 
     @Resource
     InsulinDosageRepository insulinDosageRepository;
+    @Resource
+    BoarderRepository boarderRepository;
+    @Autowired
+    UserService userService;
 
     public List<InsulinDosageDto> findAll() {
         Iterator i = insulinDosageRepository.findAll().iterator();
@@ -34,27 +42,29 @@ public class InsulinDosageService {
         insulinDosageRepository.delete(id);
     }
 
-    public InsulinDosageDto save( int morning, int midday, int evening, int night) {
+    public InsulinDosageDto save( long idBoarder, Date date, int dosage) {
+        User current = userService.getCurrentUser();
         InsulinDosage insulinDosage = new InsulinDosage();
-        insulinDosage.setMorning(morning);
-        insulinDosage.setMidday(midday);
-        insulinDosage.setEvening(evening);
-        insulinDosage.setNight(night);
+        insulinDosage.setBoarder(boarderRepository.findOne(idBoarder));
+        if(date != null) {
+            insulinDosage.setDate(date);
+        }
+        insulinDosage.setDosage(dosage);
 
         return new InsulinDosageDto(insulinDosageRepository.save(insulinDosage));
     }
 
-    public InsulinDosageDto update(long id, int morning, int midday, int evening, int night) {
+    public InsulinDosageDto update(long id, long idBoarder, Date date, int dosage) {
         InsulinDosage insulinDosage = insulinDosageRepository.findOne(id);
+        if(id != -1) {
+            insulinDosage.setBoarder(boarderRepository.findOne(idBoarder));
+        }
+        if(date != null) {
+            insulinDosage.setDate(date);
+        }
+        if(dosage != -1)
+            insulinDosage.setDosage(dosage);
 
-        if(morning != -1)
-            insulinDosage.setMorning(morning);
-        if(midday != -1)
-            insulinDosage.setMidday(midday);
-        if(evening != -1)
-            insulinDosage.setEvening(evening);
-        if(night != -1)
-            insulinDosage.setNight(night);
         return new InsulinDosageDto(insulinDosageRepository.save(insulinDosage));
     }
 

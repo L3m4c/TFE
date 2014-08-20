@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import service.ObservationService;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,10 +21,15 @@ public class ObservationController {
     ObservationService observationService;
 
     @RequestMapping(value = "/observation", method = RequestMethod.POST)
-    public ObservationDto create(
+    public ObservationDto create(@RequestParam(value="boarder", required = true) long idBoarder,
+                                 @RequestParam(value="date", required = false) Long dateMill,
                              @RequestParam(value="comment", required = true) String comment)
     {
-        return observationService.save(comment); }
+        Date date = new Date();
+        if(dateMill != null) {
+            date.setTime(dateMill);
+        }
+        return observationService.save(idBoarder, date, comment); }
 
     @RequestMapping(value = "/observation", method = RequestMethod.GET)
     public ObservationDto get(
@@ -40,9 +46,11 @@ public class ObservationController {
     @RequestMapping(value = "/observation", method = RequestMethod.PUT)
     public ObservationDto update(
             @RequestParam(value = "id", required = true) long id,
+            @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
+            @RequestParam(value="date", required = false) Date date,
             @RequestParam(value="comment", required = false, defaultValue = "-1") String comment){
 
-        return observationService.update(id, comment);
+        return observationService.update(id, idBoarder, date, comment);
     }
 
     @RequestMapping(value = "/observation/all", method = RequestMethod.GET)

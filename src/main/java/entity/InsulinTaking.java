@@ -1,9 +1,7 @@
 package entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Dams on 6/08/2014.
@@ -14,9 +12,14 @@ public class InsulinTaking {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
-    private int morning;
-    private int midday;
-    private int evening;
+    @ManyToOne
+    private Boarder boarder;
+
+    @ManyToOne
+    private User user;
+
+    private Date date = new Date();
+    private int glycemia;
 
     public long getId() {
         return id;
@@ -26,27 +29,37 @@ public class InsulinTaking {
         this.id = id;
     }
 
-    public int getMorning() {
-        return morning;
+    public Boarder getBoarder() {
+        return boarder;
     }
 
-    public void setMorning(int morning) {
-        this.morning = morning;
+    public void setBoarder(Boarder boarder) {
+        this.boarder = boarder;
     }
 
-    public int getMidday() {
-        return midday;
+    public User getUser() {
+        return user;
     }
 
-    public void setMidday(int midday) {
-        this.midday = midday;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getEvening() {
-        return evening;
+    public Date getDate() {
+        return date;
     }
 
-    public void setEvening(int evening) {
-        this.evening = evening;
+    public void setDate(Date date) {
+        this.date = date;
     }
+
+    public int getGlycemia() {
+        return glycemia;
+    }
+
+    public void setGlycemia(int glycemia) {
+        this.glycemia = glycemia;
+    }
+
+
 }

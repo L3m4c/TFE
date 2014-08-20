@@ -1,11 +1,15 @@
 package service;
 
 import dto.InsulinTakingDto;
+import entity.BoarderRepository;
 import entity.InsulinTaking;
 import entity.InsulinTakingRepository;
+import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,6 +21,10 @@ public class InsulinTakingService {
 
     @Resource
     InsulinTakingRepository insulinTakingRepository;
+    @Resource
+    BoarderRepository boarderRepository;
+    @Autowired
+    UserService userService;
 
     public List<InsulinTakingDto> findAll() {
         Iterator i = insulinTakingRepository.findAll().iterator();
@@ -35,24 +43,28 @@ public class InsulinTakingService {
         insulinTakingRepository.delete(id);
     }
 
-    public InsulinTakingDto save( int morning, int midday, int evening) {
+    public InsulinTakingDto save( long idBoarder, Date date, int glycemia) {
         InsulinTaking insulinTaking = new InsulinTaking();
-        insulinTaking.setMorning(morning);
-        insulinTaking.setMidday(midday);
-        insulinTaking.setEvening(evening);
+        User current = userService.getCurrentUser();
+        insulinTaking.setBoarder(boarderRepository.findOne(idBoarder));
+        if(date != null) {
+            insulinTaking.setDate(date);
+        }
+        insulinTaking.setGlycemia(glycemia);
 
         return new InsulinTakingDto(insulinTakingRepository.save(insulinTaking));
     }
 
-    public InsulinTakingDto update(long id, int morning, int midday, int evening) {
+    public InsulinTakingDto update(long id, long idBoarder, Date date, int glycemia) {
         InsulinTaking insulinTaking = insulinTakingRepository.findOne(id);
-
-        if(morning != -1)
-            insulinTaking.setMorning(morning);
-        if(midday != -1)
-            insulinTaking.setMidday(midday);
-        if(evening != -1)
-            insulinTaking.setEvening(evening);
+        if(id != -1) {
+            insulinTaking.setBoarder(boarderRepository.findOne(idBoarder));
+        }
+        if(date != null) {
+            insulinTaking.setDate(date);
+        }
+        if(glycemia != -1)
+            insulinTaking.setGlycemia(glycemia);
 
         return new InsulinTakingDto(insulinTakingRepository.save(insulinTaking));
     }

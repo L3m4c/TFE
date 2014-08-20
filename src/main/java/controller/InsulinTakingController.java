@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import service.InsulinTakingService;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,11 +21,16 @@ public class InsulinTakingController {
     InsulinTakingService insulinTakingService;
 
     @RequestMapping(value = "/insulinTaking", method = RequestMethod.POST)
-    public InsulinTakingDto create(@RequestParam(value="morning", required = true) int morning,
-                               @RequestParam(value="midday", required = true) int midday,
-                               @RequestParam(value="evening", required = true) int evening)
+    public InsulinTakingDto create(@RequestParam(value="boarder", required = true) long idBoarder,
+                                   @RequestParam(value="date", required = false) Long dateMill,
+
+                                   @RequestParam(value="glycemia", required = true) int glycemia)
     {
-        return insulinTakingService.save(morning, midday, evening); }
+        Date date = new Date();
+        if(dateMill != null) {
+            date.setTime(dateMill);
+        }
+        return insulinTakingService.save(idBoarder, date, glycemia); }
 
 
     @RequestMapping(value = "/insulinTaking", method = RequestMethod.GET)
@@ -42,11 +48,11 @@ public class InsulinTakingController {
     @RequestMapping(value = "/insulinTaking", method = RequestMethod.PUT)
     public InsulinTakingDto update(
             @RequestParam(value = "id", required = true) long id,
-            @RequestParam(value="morning", required = false) int morning,
-            @RequestParam(value="midday", required = false) int midday,
-            @RequestParam(value="evening", required = false) int evening){
+        @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
+        @RequestParam(value="date", required = false) Date date,
+        @RequestParam(value="glycemia", required = false) int glycemia){
 
-        return insulinTakingService.update(id, morning, midday, evening);
+        return insulinTakingService.update(id, idBoarder, date, glycemia);
     }
 
     @RequestMapping(value = "/insulinTaking/all", method = RequestMethod.GET)

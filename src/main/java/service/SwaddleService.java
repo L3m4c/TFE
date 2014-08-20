@@ -1,11 +1,8 @@
 package service;
 
+
 import dto.SwaddleDto;
-import entity.BoarderRepository;
-import entity.Swaddle;
-import entity.User;
-import entity.SwaddleRepository;
-import entity.UserRepository;
+import entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -31,17 +28,16 @@ public class SwaddleService {
     /**
      * Save a swaddle. If date == null : date = new Date();
      * @param idBoarder
-     * @param idUser
+
      * @param date
      * @return
      */
 
-    public SwaddleDto save(long idBoarder, long idUser, Date date) {
+    public SwaddleDto save(long idBoarder, Date date) {
         User current = userService.getCurrentUser();
 
         Swaddle swaddle = new Swaddle();
         swaddle.setBoarder(boarderRepository.findOne(idBoarder));
-        swaddle.setUser(userRepository.findOne(idUser));
         swaddle.setUser(current);
         if(date != null) {
             swaddle.setDate(date);
@@ -67,19 +63,16 @@ public class SwaddleService {
     }
 
     /**
-     * Update a swaddle. If date == null : date = new Date();
+     * Update a meal. If date == null : date = new Date();
      * @param id
      * @param idBoarder
      * @param date
      * @return
      */
-    public SwaddleDto update(long id, long idBoarder, long idUser, Date date) {
+    public SwaddleDto update(long id, long idBoarder, Date date) {
         Swaddle swaddle = swaddleRepository.findOne(id);
         if(id != -1) {
             swaddle.setBoarder(boarderRepository.findOne(idBoarder));
-        }
-        if(id != -1) {
-            swaddle.setUser(userRepository.findOne(idUser));
         }
         if(date != null) {
             swaddle.setDate(date);

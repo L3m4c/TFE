@@ -2,25 +2,30 @@ package dto;
 
 import entity.InsulinDosage;
 
+import java.util.Date;
+
 /**
  * Created by Dams on 6/08/2014.
  */
 public class InsulinDosageDto {
 
         private long id;
-        private int morning;
-        private int midday;
-        private int evening;
-        private int night;
+        private BoarderDto boarder;
+        private UserDto user;
+        private Date date;
+        private int dosage;
 
         public InsulinDosageDto() {}
 
         public InsulinDosageDto(InsulinDosage insulinDosage) {
             this.id = insulinDosage.getId();
-            this.morning = insulinDosage.getMorning();
-            this.midday = insulinDosage.getMidday();
-            this.evening = insulinDosage.getEvening();
-            this.night = insulinDosage.getNight();
+            if(insulinDosage.getBoarder() != null)
+                this.boarder = new BoarderDto(insulinDosage.getBoarder());
+            if(insulinDosage.getUser() != null)
+                this.user = new UserDto(insulinDosage.getUser());
+            this.date = insulinDosage.getDate();
+            this.dosage = insulinDosage.getDosage();
+
         }
 
         public long getId() {
@@ -31,35 +36,35 @@ public class InsulinDosageDto {
             this.id = id;
         }
 
-        public int getMorning() {
-            return morning;
+        public BoarderDto getBoarder() {
+        return boarder;
         }
 
-        public void setMorning(int morning) {
-            this.morning = morning;
+        public void setBoarder(BoarderDto boarder) {
+            this.boarder = boarder;
         }
 
-        public int getMidday() {
-            return midday;
+        public UserDto getUser() {
+            return user;
         }
 
-        public void setMidday(int midday) {
-            this.midday = midday;
+        public void setUser(UserDto user) {
+            this.user = user;
         }
 
-        public int getEvening() {
-            return evening;
+        public Date getDate() {
+            return date;
         }
 
-        public void setEvening(int evening) {
-            this.evening = evening;
+        public void setDate(Date date) {
+            this.date = date;
         }
 
-    public int getNight() {
-        return night;
-    }
+        public int getDosage() {
+            return dosage;
+        }
 
-    public void setNight(int night) {
-        this.night = night;
-    }
+        public void setDosage(int dosage) {
+            this.dosage = dosage;
+        }
 }

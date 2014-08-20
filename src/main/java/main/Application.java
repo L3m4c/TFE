@@ -180,7 +180,7 @@ public class Application {
         return new DrugService();
     }
     @Bean
-    public RolePermissionService getRolePermissionervice() {
+    public RolePermissionService getRolePermissionService() {
         return new RolePermissionService();
     }
 }
