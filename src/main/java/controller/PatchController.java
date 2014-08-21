@@ -21,7 +21,8 @@ public class PatchController {
     PatchService patchService;
 
     @RequestMapping(value = "/patch", method = RequestMethod.POST)
-    public PatchDto create(  @RequestParam(value="date", required = false) Date date,
+    public PatchDto create(  @RequestParam(value="boarder", required = true) long idBoarder,
+                             @RequestParam(value="date", required = false) Long dateMill,
                              @RequestParam(value="dateStart", required = false) Date dateStart,
                              @RequestParam(value="dateEnd", required = false) Date dateEnd,
                              @RequestParam(value="doctor", required = true) String doctor,
@@ -29,7 +30,11 @@ public class PatchController {
                              @RequestParam(value="dosage", required = true) int dosage,
                              @RequestParam(value="unit", required = true) String unit)
     {
-        return patchService.save(date,dateStart, dateEnd, doctor, nameMedic, dosage, unit); }
+        Date date = new Date();
+        if(dateMill != null) {
+            date.setTime(dateMill);
+        }
+        return patchService.save(idBoarder, date, dateStart, dateEnd, doctor, nameMedic, dosage, unit); }
 
     @RequestMapping(value = "/patch", method = RequestMethod.GET)
     public PatchDto get(
@@ -46,6 +51,7 @@ public class PatchController {
     @RequestMapping(value = "/patch", method = RequestMethod.PUT)
     public PatchDto update(
             @RequestParam(value = "id", required = true) long id,
+            @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
             @RequestParam(value="date", required = false) Date date,
             @RequestParam(value="dateStart", required = false) Date dateStart,
             @RequestParam(value="dateEnd", required = false) Date dateEnd,
@@ -54,7 +60,7 @@ public class PatchController {
             @RequestParam(value="dosage", required = false, defaultValue = "-1") int dosage,
             @RequestParam(value="unit", required = false, defaultValue = "-1") String unit){
 
-        return patchService.update(id, date, dateStart, dateEnd, doctor, nameMedic, dosage, unit);
+        return patchService.update(id, idBoarder, date, dateStart, dateEnd, doctor, nameMedic, dosage, unit);
     }
 
     @RequestMapping(value = "/patch/all", method = RequestMethod.GET)

@@ -46,6 +46,7 @@ public class InsulinDosageService {
         User current = userService.getCurrentUser();
         InsulinDosage insulinDosage = new InsulinDosage();
         insulinDosage.setBoarder(boarderRepository.findOne(idBoarder));
+        insulinDosage.setUser(current);
         if(date != null) {
             insulinDosage.setDate(date);
         }

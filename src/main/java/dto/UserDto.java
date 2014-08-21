@@ -12,7 +12,7 @@ public class UserDto {
     private String name;
     private String role;
 
-    public UserDto() {}
+
     public UserDto(User user) {
         this.id = user.getId();
         this.surname = user.getSurname();

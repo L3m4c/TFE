@@ -4,6 +4,7 @@ import dto.ObservationDto;
 import entity.BoarderRepository;
 import entity.Observation;
 import entity.ObservationRepository;
+import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -43,8 +44,9 @@ public class ObservationService {
 
     public ObservationDto save(long idBoarder, Date date, String comment) {
         Observation observation = new Observation();
+        User current = userService.getCurrentUser();
         observation.setBoarder(boarderRepository.findOne(idBoarder));
-
+        observation.setUser(current);
         if(date != null) {
             observation.setDate(date);
         }

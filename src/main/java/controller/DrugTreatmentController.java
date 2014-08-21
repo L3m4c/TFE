@@ -21,7 +21,8 @@ public class DrugTreatmentController {
     DrugTreatmentService drugTreatmentService;
 
     @RequestMapping(value = "/drugTreatment", method = RequestMethod.POST)
-    public DrugTreatmentDto create(
+    public DrugTreatmentDto create( @RequestParam(value="boarder", required = true) long idBoarder,
+                                    @RequestParam(value="date", required = false) Long dateMill,
                                @RequestParam(value="dateStart", required = false) Date dateStart,
                                @RequestParam(value="dateEnd", required = false) Date dateEnd,
                                @RequestParam(value="doctor", required = true) String doctor,
@@ -33,7 +34,11 @@ public class DrugTreatmentController {
                                @RequestParam(value="evening", required = true) int evening,
                                @RequestParam(value="night", required = true) int night)
     {
-        return drugTreatmentService.save(dateStart, dateEnd, doctor, nameMedic, dosage, unit, morning, midday, evening, night); }
+        Date date = new Date();
+        if(dateMill != null) {
+            date.setTime(dateMill);
+        }
+        return drugTreatmentService.save(idBoarder, date, dateStart, dateEnd, doctor, nameMedic, dosage, unit, morning, midday, evening, night); }
 
     @RequestMapping(value = "/drugTreatment", method = RequestMethod.GET)
     public DrugTreatmentDto get(
@@ -50,6 +55,8 @@ public class DrugTreatmentController {
     @RequestMapping(value = "/drugTreatment", method = RequestMethod.PUT)
     public DrugTreatmentDto update(
             @RequestParam(value = "id", required = true) long id,
+            @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
+            @RequestParam(value="date", required = false) Date date,
             @RequestParam(value="dateStart", required = false) Date dateStart,
             @RequestParam(value="dateEnd", required = false) Date dateEnd,
             @RequestParam(value="doctor", required = false) String doctor,
@@ -61,7 +68,7 @@ public class DrugTreatmentController {
             @RequestParam(value="evening", required = false) int evening,
             @RequestParam(value="night", required = false) int night){
 
-        return drugTreatmentService.update(id, dateStart, dateEnd, doctor, nameMedic, dosage, unit, morning, midday, evening, night);
+        return drugTreatmentService.update(id, idBoarder, date, dateStart, dateEnd, doctor, nameMedic, dosage, unit, morning, midday, evening, night);
     }
 
     @RequestMapping(value = "/drugTreatment/all", method = RequestMethod.GET)

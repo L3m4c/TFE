@@ -12,13 +12,15 @@ public class Aerosol {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
+    @ManyToOne
+    private Boarder boarder;
 
-
-
-
-    private long time1;
-
+    @ManyToOne
+    private User user;
     private Date date = new Date();
+    private Date dateStart = new Date();
+    private Date dateEnd = new Date();
+    private String doctor;
     private String nameMedic;
     private int dosage;
     private String unit;
@@ -31,9 +33,45 @@ public class Aerosol {
         this.id = id;
     }
 
-    public long getTime1() {return time1;}
+    public Boarder getBoarder() {
+        return boarder;
+    }
 
-    public void setTime1 (long time1) {this.time1 = time1;}
+    public void setBoarder(Boarder boarder) {
+        this.boarder = boarder;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
+    public String getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(String doctor) {
+        this.doctor = doctor;
+    }
 
     public Date getDate() {
         return date;

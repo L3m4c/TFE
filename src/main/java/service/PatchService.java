@@ -1,9 +1,11 @@
 package service;
 
 import dto.PatchDto;
+import entity.BoarderRepository;
 import entity.Patch;
 import entity.PatchRepository;
-import org.springframework.stereotype.Component;
+import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -18,6 +20,10 @@ public class PatchService {
 
     @Resource
     PatchRepository patchRepository;
+    @Resource
+    BoarderRepository boarderRepository;
+    @Autowired
+    UserService userService;
 
     public List<PatchDto> findAll() {
         Iterator i = patchRepository.findAll().iterator();
@@ -36,8 +42,11 @@ public class PatchService {
         patchRepository.delete(id);
     }
 
-    public PatchDto save(Date date, Date dateStart, Date dateEnd, String doctor, String nameMedic, int dosage, String unit) {
+    public PatchDto save(long idBoarder, Date date, Date dateStart, Date dateEnd, String doctor, String nameMedic, int dosage, String unit) {
+        User current = userService.getCurrentUser();
         Patch patch = new Patch();
+        patch.setBoarder(boarderRepository.findOne(idBoarder));
+        patch.setUser(current);
         if(date != null) {
             patch.setDate(date);
         }
@@ -50,9 +59,11 @@ public class PatchService {
         return new PatchDto(patchRepository.save(patch));
     }
 
-    public PatchDto update(long id, Date date, Date dateStart, Date dateEnd, String doctor, String nameMedic, int dosage, String unit ) {
+    public PatchDto update(long id, long idBoarder, Date date, Date dateStart, Date dateEnd, String doctor, String nameMedic, int dosage, String unit ) {
         Patch patch = patchRepository.findOne(id);
-
+        if(id != -1) {
+            patch.setBoarder(boarderRepository.findOne(idBoarder));
+        }
         if(date != null)
             patch.setDate(date);
         if(dateStart != null)

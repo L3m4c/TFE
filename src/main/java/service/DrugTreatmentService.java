@@ -1,8 +1,11 @@
 package service;
 
 import dto.DrugTreatmentDto;
+import entity.BoarderRepository;
 import entity.DrugTreatment;
 import entity.DrugTreatmentRepository;
+import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -17,6 +20,10 @@ public class DrugTreatmentService {
 
     @Resource
     DrugTreatmentRepository drugTreatmentRepository;
+    @Resource
+    BoarderRepository boarderRepository;
+    @Autowired
+    UserService userService;
 
     public List<DrugTreatmentDto> findAll() {
         Iterator i = drugTreatmentRepository.findAll().iterator();
@@ -35,8 +42,14 @@ public class DrugTreatmentService {
         drugTreatmentRepository.delete(id);
     }
 
-    public DrugTreatmentDto save(Date dateStart, Date dateEnd, String doctor, String nameMedic, int dosage, String unit, int morning, int midday, int evening, int night) {
+    public DrugTreatmentDto save(long idBoarder, Date date, Date dateStart, Date dateEnd, String doctor, String nameMedic, int dosage, String unit, int morning, int midday, int evening, int night) {
         DrugTreatment drugTreatment = new DrugTreatment();
+        User current = userService.getCurrentUser();
+        drugTreatment.setBoarder(boarderRepository.findOne(idBoarder));
+        drugTreatment.setUser(current);
+        if(date != null) {
+            drugTreatment.setDate(date);
+        }
         drugTreatment.setDateStart(dateStart);
         drugTreatment.setDateEnd(dateEnd);
         drugTreatment.setDoctor(doctor);
@@ -51,9 +64,13 @@ public class DrugTreatmentService {
         return new DrugTreatmentDto(drugTreatmentRepository.save(drugTreatment));
     }
 
-    public DrugTreatmentDto update(long id, Date dateStart, Date dateEnd, String doctor, String nameMedic, int dosage, String unit, int morning, int midday, int evening,int night) {
+    public DrugTreatmentDto update(long id, long idBoarder, Date date, Date dateStart, Date dateEnd, String doctor, String nameMedic, int dosage, String unit, int morning, int midday, int evening,int night) {
         DrugTreatment drugTreatment = drugTreatmentRepository.findOne(id);
-
+        if(id != -1) {
+            drugTreatment.setBoarder(boarderRepository.findOne(idBoarder));
+        }
+        if(date != null)
+            drugTreatment.setDate(date);
         if(dateStart != null)
             drugTreatment.setDateStart(dateStart);
         if(dateEnd != null)

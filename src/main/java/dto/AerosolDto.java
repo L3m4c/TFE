@@ -10,8 +10,12 @@ import java.util.Date;
 public class AerosolDto {
 
     private long id;
-    private long time1;
+    private BoarderDto boarder;
+    private UserDto user;
     private Date date;
+    private Date dateStart;
+    private Date dateEnd;
+    private String doctor;
     private String nameMedic;
     private int dosage;
     private String unit;
@@ -20,7 +24,15 @@ public class AerosolDto {
 
     public AerosolDto(Aerosol aerosol) {
         this.id = aerosol.getId();
+        if(aerosol.getBoarder() != null)
+            this.boarder = new BoarderDto(aerosol.getBoarder());
+        if(aerosol.getUser() != null)
+            this.user = new UserDto(aerosol.getUser());
+
         this.date = aerosol.getDate();
+        this.dateStart = aerosol.getDateStart();
+        this.dateEnd = aerosol.getDateEnd();
+        this.doctor = aerosol.getDoctor();
         this.nameMedic = aerosol.getNameMedic();
         this.dosage = aerosol.getDosage();
         this.unit = aerosol.getUnit();
@@ -34,12 +46,20 @@ public class AerosolDto {
         this.id = id;
     }
 
-    public long getTime1() {
-        return time1;
+    public BoarderDto getBoarder() {
+        return boarder;
     }
 
-    public void setTime1(long time1) {
-        this.time1 = time1;
+    public void setBoarder(BoarderDto boarder) {
+        this.boarder = boarder;
+    }
+
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
     }
 
     public Date getDate() {
@@ -50,11 +70,37 @@ public class AerosolDto {
         this.date = date;
     }
 
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
+    public String getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(String doctor) {
+        this.doctor = doctor;
+    }
+
     public String getNameMedic() {
         return nameMedic;
     }
 
-    public void setNameMedic(String nameMedic) {this.nameMedic = nameMedic;}
+    public void setNameMedic(String nameMedic) {
+        this.nameMedic = nameMedic;
+    }
 
     public int getDosage() {
         return dosage;

@@ -10,7 +10,9 @@ import java.util.Date;
 public class PatchDto {
 
     private long id;
-    private Date date = new Date();
+    private BoarderDto boarder;
+    private UserDto user;
+    private Date date;
     private Date dateStart;
     private Date dateEnd;
     private String doctor;
@@ -22,6 +24,11 @@ public class PatchDto {
 
     public PatchDto(Patch patch) {
         this.id = patch.getId();
+        if(patch.getBoarder() != null)
+            this.boarder = new BoarderDto(patch.getBoarder());
+        if(patch.getUser() != null)
+            this.user = new UserDto(patch.getUser());
+
         this.date = patch.getDate();
         this.dateStart = patch.getDateStart();
         this.dateEnd = patch.getDateEnd();
@@ -37,6 +44,22 @@ public class PatchDto {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public BoarderDto getBoarder() {
+        return boarder;
+    }
+
+    public void setBoarder(BoarderDto boarder) {
+        this.boarder = boarder;
+    }
+
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
     }
 
     public Date getDate() {

@@ -8,8 +8,8 @@ import java.util.Date;
  */
 public class SwaddleDto {
     private long id;
-    private long boarder;
-    private long user;
+    private BoarderDto boarder;
+    private UserDto user;
     private Date date;
 
     public SwaddleDto() {}
@@ -17,9 +17,9 @@ public class SwaddleDto {
     public SwaddleDto(Swaddle swaddle) {
         this.id = swaddle.getId();
         if(swaddle.getBoarder() != null)
-            this.boarder = swaddle.getBoarder().getId();
+            this.boarder = new BoarderDto(swaddle.getBoarder());
         if(swaddle.getUser() != null)
-            this.user = swaddle.getUser().getId();
+            this.user = new UserDto(swaddle.getUser());
         this.date = swaddle.getDate();
     }
 
@@ -31,19 +31,19 @@ public class SwaddleDto {
         this.id = id;
     }
 
-    public long getBoarder() {
+    public BoarderDto getBoarder() {
         return boarder;
     }
 
-    public void setBoarder(long boarder) {
+    public void setBoarder(BoarderDto boarder) {
         this.boarder = boarder;
     }
 
-    public long getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(long user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 

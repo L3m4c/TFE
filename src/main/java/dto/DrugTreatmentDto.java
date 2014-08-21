@@ -10,6 +10,9 @@ import java.util.Date;
 public class DrugTreatmentDto {
 
     private long id;
+    private BoarderDto boarder;
+    private UserDto user;
+    private Date date;
     private Date dateStart;
     private Date dateEnd;
     private String doctor;
@@ -25,6 +28,12 @@ public class DrugTreatmentDto {
 
     public DrugTreatmentDto(DrugTreatment drugTreatment) {
         this.id = drugTreatment.getId();
+        if(drugTreatment.getBoarder() != null)
+            this.boarder = new BoarderDto(drugTreatment.getBoarder());
+        if(drugTreatment.getUser() != null)
+            this.user = new UserDto(drugTreatment.getUser());
+
+        this.date = drugTreatment.getDate();
         this.dateStart = drugTreatment.getDateStart();
         this.dateEnd = drugTreatment.getDateEnd();
         this.doctor = drugTreatment.getDoctor();
@@ -43,6 +52,30 @@ public class DrugTreatmentDto {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public BoarderDto getBoarder() {
+        return boarder;
+    }
+
+    public void setBoarder(BoarderDto boarder) {
+        this.boarder = boarder;
+    }
+
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Date getDateStart() {

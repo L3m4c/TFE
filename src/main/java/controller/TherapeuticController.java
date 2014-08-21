@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import service.TherapeuticService;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,14 +21,18 @@ public class TherapeuticController {
     TherapeuticService therapeuticService;
 
     @RequestMapping(value = "/therapeutic", method = RequestMethod.POST)
-    public TherapeuticDto create(
+    public TherapeuticDto create(@RequestParam(value="boarder", required = true) long idBoarder,
+                                 @RequestParam(value="date", required = false) Long dateMill,
             @RequestParam(value="preparation", required = true) boolean preparation,
             @RequestParam(value="adMorning", required = true) boolean adMorning,
             @RequestParam(value="adMidday", required = true) boolean adMidday,
             @RequestParam(value="adEvening", required = true) boolean adEvening,
             @RequestParam(value="adNight", required = true) boolean adNight)
     {
-        return therapeuticService.save(preparation, adMorning, adMidday, adEvening, adNight); }
+        Date date = new Date();
+        if(dateMill != null) {
+            date.setTime(dateMill);}
+        return therapeuticService.save(idBoarder, date, preparation, adMorning, adMidday, adEvening, adNight); }
 
     @RequestMapping(value = "/therapeutic", method = RequestMethod.GET)
     public TherapeuticDto get(
@@ -44,6 +49,8 @@ public class TherapeuticController {
     @RequestMapping(value = "/therapeutic", method = RequestMethod.PUT)
     public TherapeuticDto update(
             @RequestParam(value = "id", required = true) long id,
+            @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
+            @RequestParam(value="date", required = false) Date date,
             @RequestParam(value="preparation", required = false) boolean preparation,
             @RequestParam(value="adMorning", required = false) boolean adMorning,
             @RequestParam(value="adMidday", required = false) boolean adMidday,
@@ -51,7 +58,7 @@ public class TherapeuticController {
             @RequestParam(value="adNight", required = false) boolean adNight)
     {
 
-        return therapeuticService.update(id, preparation, adMorning, adMidday, adEvening, adNight);
+        return therapeuticService.update(id, idBoarder, date, preparation, adMorning, adMidday, adEvening, adNight);
     }
 
     @RequestMapping(value = "/therapeutic/all", method = RequestMethod.GET)
