@@ -1,11 +1,15 @@
 package service;
 
 import dto.ToiletHelpingDto;
+import entity.BoarderRepository;
 import entity.ToiletHelping;
 import entity.ToiletHelpingRepository;
+import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,6 +20,10 @@ public class ToiletHelpingService {
 
     @Resource
     ToiletHelpingRepository toiletHelpingRepository;
+    @Resource
+    BoarderRepository boarderRepository;
+    @Autowired
+    UserService userService;
 
     public List<ToiletHelpingDto> findAll() {
         Iterator i = toiletHelpingRepository.findAll().iterator();
@@ -34,16 +42,27 @@ public class ToiletHelpingService {
         toiletHelpingRepository.delete(id);
     }
 
-    public ToiletHelpingDto save(boolean move) {
+    public ToiletHelpingDto save(long idBoarder, Date date, boolean move) {
         ToiletHelping toiletHelping = new ToiletHelping();
+        User current = userService.getCurrentUser();
+        toiletHelping.setBoarder(boarderRepository.findOne(idBoarder));
+        toiletHelping.setUser(current);
+
+        if(date != null) {
+            toiletHelping.setDate(date);
+        }
         toiletHelping.setMove(move);
 
         return new ToiletHelpingDto(toiletHelpingRepository.save(toiletHelping));
     }
 
-    public ToiletHelpingDto update(long id, boolean move) {
+    public ToiletHelpingDto update(long id, long idBoarder, Date date, boolean move) {
         ToiletHelping toiletHelping = toiletHelpingRepository.findOne(id);
-
+        if(id != -1) {
+            toiletHelping.setBoarder(boarderRepository.findOne(idBoarder));
+        }
+        if(date != null)
+            toiletHelping.setDate(date);
         toiletHelping.setMove(move);
 
         return new ToiletHelpingDto(toiletHelpingRepository.save(toiletHelping));

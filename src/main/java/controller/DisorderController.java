@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import service.DisorderService;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +22,8 @@ public class DisorderController {
 
     @RequestMapping(value = "/disorder", method = RequestMethod.POST)
     public DisorderDto create(
+            @RequestParam(value="boarder", required = true) long idBoarder,
+            @RequestParam(value="date", required = false) Long dateMill,
             @RequestParam(value="timeDisorientation", required = true) boolean timeDisorientation,
             @RequestParam(value="spaceDisorientation", required = true) boolean spaceDisorientation,
             @RequestParam(value="termDifficulty", required = true) boolean termDifficulty,
@@ -29,7 +32,11 @@ public class DisorderController {
             @RequestParam(value="agitated", required = true) boolean agitated)
 
     {
-        return disorderService.save(timeDisorientation, spaceDisorientation,termDifficulty, verbalDifficulty, lossConcept, agitated); }
+        Date date = new Date();
+        if(dateMill != null) {
+            date.setTime(dateMill);}
+
+        return disorderService.save(idBoarder, date, timeDisorientation, spaceDisorientation,termDifficulty, verbalDifficulty, lossConcept, agitated); }
 
     @RequestMapping(value = "/disorder", method = RequestMethod.GET)
     public DisorderDto get(
@@ -46,6 +53,8 @@ public class DisorderController {
     @RequestMapping(value = "/disorder", method = RequestMethod.PUT)
     public DisorderDto update(
             @RequestParam(value = "id", required = true) long id,
+            @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
+            @RequestParam(value="date", required = false) Date date,
             @RequestParam(value="timeDisorientation", required = true) boolean timeDisorientation,
             @RequestParam(value="spaceDisorientation", required = true) boolean spaceDisorientation,
             @RequestParam(value="termDifficulty", required = true) boolean termDifficulty,
@@ -55,7 +64,7 @@ public class DisorderController {
 
     {
 
-        return disorderService.update(id, timeDisorientation, spaceDisorientation,termDifficulty, verbalDifficulty, lossConcept, agitated);
+        return disorderService.update(id, idBoarder, date, timeDisorientation, spaceDisorientation,termDifficulty, verbalDifficulty, lossConcept, agitated);
     }
 
     @RequestMapping(value = "/disorder/all", method = RequestMethod.GET)

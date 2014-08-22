@@ -1,8 +1,11 @@
 package service;
 
 import dto.InjectionDto;
+import entity.BoarderRepository;
 import entity.Injection;
 import entity.InjectionRepository;
+import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -17,6 +20,10 @@ public class InjectionService {
 
     @Resource
     InjectionRepository injectionRepository;
+    @Resource
+    BoarderRepository boarderRepository;
+    @Autowired
+    UserService userService;
 
     public List<InjectionDto> findAll() {
         Iterator i = injectionRepository.findAll().iterator();
@@ -35,10 +42,11 @@ public class InjectionService {
         injectionRepository.delete(id);
     }
 
-    public InjectionDto save(String boarder,String user, Date date, Date dateStart, Date dateEnd, String doctor, String establishment, String nameMedic, int dosage, String unit) {
+    public InjectionDto save(long idBoarder, Date date, Date dateStart, Date dateEnd, String doctor, String establishment, String nameMedic, int dosage, String unit) {
         Injection injection = new Injection();
-        injection.setBoarder(boarder);
-        injection.setUser(user);
+        User current = userService.getCurrentUser();
+        injection.setBoarder(boarderRepository.findOne(idBoarder));
+        injection.setUser(current);
         if(date != null) {
             injection.setDate(date);
         }
@@ -52,13 +60,11 @@ public class InjectionService {
         return new InjectionDto(injectionRepository.save(injection));
     }
 
-    public InjectionDto update(long id, String boarder, String user, Date date, Date dateStart, Date dateEnd, String doctor, String establishment, String nameMedic, int dosage, String unit ) {
+    public InjectionDto update(long id, long idBoarder, Date date, Date dateStart, Date dateEnd, String doctor, String establishment, String nameMedic, int dosage, String unit ) {
         Injection injection = injectionRepository.findOne(id);
-
-        if(boarder != null)
-            injection.setBoarder(boarder);
-        if(user != null)
-            injection.setUser(user);
+        if(id != -1) {
+            injection.setBoarder(boarderRepository.findOne(idBoarder));
+        }
         if(date != null)
             injection.setDate(date);
         if(dateStart != null)

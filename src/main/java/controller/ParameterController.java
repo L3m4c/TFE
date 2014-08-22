@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import service.ParameterService;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,11 +22,17 @@ public class ParameterController {
 
     @RequestMapping(value = "/parameter", method = RequestMethod.POST)
     public ParameterDto create(
+                             @RequestParam(value="boarder", required = true) long idBoarder,
+                             @RequestParam(value="date", required = false) Long dateMill,
                              @RequestParam(value="pulse", required = true) int pulse,
                              @RequestParam(value="tension", required = true) int tension,
                              @RequestParam(value="temperature", required = true) int temperature)
     {
-        return parameterService.save(pulse, tension, temperature); }
+        Date date = new Date();
+        if(dateMill != null) {
+            date.setTime(dateMill);}
+
+        return parameterService.save(idBoarder, date, pulse, tension, temperature); }
 
     @RequestMapping(value = "/parameter", method = RequestMethod.GET)
     public ParameterDto get(
@@ -42,11 +49,13 @@ public class ParameterController {
     @RequestMapping(value = "/parameter", method = RequestMethod.PUT)
     public ParameterDto update(
             @RequestParam(value = "id", required = true) long id,
+            @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
+            @RequestParam(value="date", required = false) Date date,
             @RequestParam(value="pulse", required = false, defaultValue = "-1") int pulse,
             @RequestParam(value="tension", required = false, defaultValue = "-1") int tension,
             @RequestParam(value="temperature", required = false, defaultValue = "-1") int temperature){
 
-        return parameterService.update(id, pulse, tension, temperature);
+        return parameterService.update(id, idBoarder, date, pulse, tension, temperature);
     }
 
     @RequestMapping(value = "/parameter/all", method = RequestMethod.GET)

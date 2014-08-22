@@ -1,11 +1,15 @@
 package service;
 
 import dto.EatDto;
+import entity.BoarderRepository;
 import entity.Eat;
 import entity.EatRepository;
+import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,6 +20,10 @@ public class EatService {
 
     @Resource
     EatRepository eatRepository;
+    @Resource
+    BoarderRepository boarderRepository;
+    @Autowired
+    UserService userService;
 
     public List<EatDto> findAll() {
         Iterator i = eatRepository.findAll().iterator();
@@ -34,8 +42,15 @@ public class EatService {
         eatRepository.delete(id);
     }
 
-    public EatDto save(boolean priorAid, boolean fullAid, boolean stimulated, boolean hydration) {
+    public EatDto save(long idBoarder, Date date, boolean priorAid, boolean fullAid, boolean stimulated, boolean hydration) {
         Eat eat = new Eat();
+        User current = userService.getCurrentUser();
+        eat.setBoarder(boarderRepository.findOne(idBoarder));
+        eat.setUser(current);
+
+        if(date != null) {
+            eat.setDate(date);
+        }
         eat.setPriorAid(priorAid);
         eat.setFullAid(fullAid);
         eat.setStimulated(stimulated);
@@ -45,10 +60,14 @@ public class EatService {
         return new EatDto(eatRepository.save(eat));
     }
 
-    public EatDto update(long id, boolean priorAid, boolean fullAid, boolean stimulated, boolean hydration) {
+    public EatDto update(long id, long idBoarder, Date date, boolean priorAid, boolean fullAid, boolean stimulated, boolean hydration) {
         Eat eat = eatRepository.findOne(id);
 
-
+        if(id != -1) {
+            eat.setBoarder(boarderRepository.findOne(idBoarder));
+        }
+        if(date != null)
+            eat.setDate(date);
         eat.setPriorAid(priorAid);
         eat.setFullAid(fullAid);
         eat.setStimulated(stimulated);

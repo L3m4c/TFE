@@ -1,11 +1,15 @@
 package service;
 
 import dto.HygieneDto;
+import entity.BoarderRepository;
 import entity.Hygiene;
 import entity.HygieneRepository;
+import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,6 +20,10 @@ public class HygieneService {
 
     @Resource
     HygieneRepository hygieneRepository;
+    @Resource
+    BoarderRepository boarderRepository;
+    @Autowired
+    UserService userService;
 
     public List<HygieneDto> findAll() {
         Iterator i = hygieneRepository.findAll().iterator();
@@ -34,8 +42,15 @@ public class HygieneService {
         hygieneRepository.delete(id);
     }
 
-    public HygieneDto save(boolean toiletPartiel, boolean toiletComplete, boolean stimulated, boolean bath) {
+    public HygieneDto save(long idBoarder, Date date, boolean toiletPartiel, boolean toiletComplete, boolean stimulated, boolean bath) {
         Hygiene hygiene = new Hygiene();
+        User current = userService.getCurrentUser();
+        hygiene.setBoarder(boarderRepository.findOne(idBoarder));
+        hygiene.setUser(current);
+
+        if(date != null) {
+            hygiene.setDate(date);
+        }
         hygiene.setToiletPartiel(toiletPartiel);
         hygiene.setToiletComplete(toiletComplete);
         hygiene.setStimulated(stimulated);
@@ -45,9 +60,13 @@ public class HygieneService {
         return new HygieneDto(hygieneRepository.save(hygiene));
     }
 
-    public HygieneDto update(long id, boolean toiletPartiel, boolean toiletComplete, boolean stimulated, boolean bath) {
+    public HygieneDto update(long id, long idBoarder, Date date, boolean toiletPartiel, boolean toiletComplete, boolean stimulated, boolean bath) {
         Hygiene hygiene = hygieneRepository.findOne(id);
-
+        if(id != -1) {
+            hygiene.setBoarder(boarderRepository.findOne(idBoarder));
+        }
+        if(date != null)
+            hygiene.setDate(date);
 
         hygiene.setToiletPartiel(toiletPartiel);
         hygiene.setToiletComplete(toiletComplete);

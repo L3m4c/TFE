@@ -21,9 +21,8 @@ public class InjectionController {
     InjectionService injectionService;
 
     @RequestMapping(value = "/injection", method = RequestMethod.POST)
-    public InjectionDto create(@RequestParam(value="boarder", required = true) String boarder,
-                             @RequestParam(value="user", required = true) String user,
-                             @RequestParam(value="date", required = false) Date date,
+    public InjectionDto create(@RequestParam(value="boarder", required = true) long idBoarder,
+                               @RequestParam(value="date", required = false) Long dateMill,
                              @RequestParam(value="dateStart", required = false) Date dateStart,
                              @RequestParam(value="dateEnd", required = false) Date dateEnd,
                              @RequestParam(value="doctor", required = true) String doctor,
@@ -32,7 +31,11 @@ public class InjectionController {
                              @RequestParam(value="dosage", required = true) int dosage,
                              @RequestParam(value="unit", required = true) String unit)
     {
-        return injectionService.save(boarder, user, date,dateStart, dateEnd, doctor, establishment, nameMedic, dosage, unit); }
+        Date date = new Date();
+        if(dateMill != null) {
+            date.setTime(dateMill);
+        }
+        return injectionService.save(idBoarder, date, dateStart, dateEnd, doctor, establishment, nameMedic, dosage, unit); }
 
     @RequestMapping(value = "/injection", method = RequestMethod.GET)
     public InjectionDto get(
@@ -49,18 +52,17 @@ public class InjectionController {
     @RequestMapping(value = "/injection", method = RequestMethod.PUT)
     public InjectionDto update(
             @RequestParam(value = "id", required = true) long id,
-            @RequestParam(value="boarder", required = false) String boarder,
-            @RequestParam(value="user", required = false) String user,
+            @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
             @RequestParam(value="date", required = false) Date date,
             @RequestParam(value="dateStart", required = false) Date dateStart,
             @RequestParam(value="dateEnd", required = false) Date dateEnd,
             @RequestParam(value="doctor", required = false) String doctor,
             @RequestParam(value="establishment", required = false) String establishment,
             @RequestParam(value="nameMedic", required = false, defaultValue = "-1") String nameMedic,
-            @RequestParam(value="dosage", required = false, defaultValue = "-1") int dosage,
+            @RequestParam(value="dosage", required = false) int dosage,
             @RequestParam(value="unit", required = false, defaultValue = "-1") String unit){
 
-        return injectionService.update(id, boarder, user, date, dateStart, dateEnd, doctor, establishment, nameMedic, dosage, unit);
+        return injectionService.update(id, idBoarder, date, dateStart, dateEnd, doctor, establishment, nameMedic, dosage, unit);
     }
 
     @RequestMapping(value = "/injection/all", method = RequestMethod.GET)

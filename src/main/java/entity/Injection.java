@@ -1,9 +1,6 @@
 package entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -15,8 +12,10 @@ public class Injection {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
-    private String boarder;
-    private String user;
+    @ManyToOne
+    private Boarder boarder;
+    @ManyToOne
+    private User user;
     private Date date = new Date();
     private Date dateStart;
     private Date dateEnd;
@@ -34,19 +33,19 @@ public class Injection {
         this.id = id;
     }
 
-    public String getBoarder() {
+    public Boarder getBoarder() {
         return boarder;
     }
 
-    public void setBoarder(String boarder) {
+    public void setBoarder(Boarder boarder) {
         this.boarder = boarder;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

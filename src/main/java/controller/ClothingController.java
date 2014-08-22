@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import service.ClothingService;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,11 +23,17 @@ public class ClothingController {
 
     @RequestMapping(value = "/clothing", method = RequestMethod.POST)
     public ClothingDto create(
+            @RequestParam(value="boarder", required = true) long idBoarder,
+            @RequestParam(value="date", required = false) Long dateMill,
             @RequestParam(value="clothingComplete", required = true) boolean clothingComplete,
             @RequestParam(value="stimulated", required = true) boolean stimulated)
 
     {
-        return clothingService.save(clothingComplete, stimulated); }
+        Date date = new Date();
+        if(dateMill != null) {
+            date.setTime(dateMill);}
+
+        return clothingService.save(idBoarder, date, clothingComplete, stimulated); }
 
     @RequestMapping(value = "/clothing", method = RequestMethod.GET)
     public ClothingDto get(
@@ -43,12 +50,14 @@ public class ClothingController {
     @RequestMapping(value = "/clothing", method = RequestMethod.PUT)
     public ClothingDto update(
             @RequestParam(value = "id", required = true) long id,
+            @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
+            @RequestParam(value="date", required = false) Date date,
             @RequestParam(value="clothingComplete", required = false) boolean clothingComplete,
             @RequestParam(value="stimulated", required = false) boolean stimulated)
 
                {
 
-        return clothingService.update(id, clothingComplete, stimulated);
+        return clothingService.update(id,  idBoarder, date, clothingComplete, stimulated);
     }
 
     @RequestMapping(value = "/clothing/all", method = RequestMethod.GET)

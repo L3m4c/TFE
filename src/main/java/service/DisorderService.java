@@ -1,11 +1,15 @@
 package service;
 
 import dto.DisorderDto;
+import entity.BoarderRepository;
 import entity.Disorder;
 import entity.DisorderRepository;
+import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,6 +21,10 @@ public class DisorderService {
 
     @Resource
     DisorderRepository disorderRepository;
+    @Resource
+    BoarderRepository boarderRepository;
+    @Autowired
+    UserService userService;
 
     public List<DisorderDto> findAll() {
         Iterator i = disorderRepository.findAll().iterator();
@@ -35,8 +43,15 @@ public class DisorderService {
         disorderRepository.delete(id);
     }
 
-    public DisorderDto save(boolean timeDisorientation, boolean spaceDisorientation, boolean termDifficulty, boolean verbalDifficulty, boolean lossConcept, boolean agitated) {
+    public DisorderDto save(long idBoarder, Date date, boolean timeDisorientation, boolean spaceDisorientation, boolean termDifficulty, boolean verbalDifficulty, boolean lossConcept, boolean agitated) {
         Disorder disorder = new Disorder();
+        User current = userService.getCurrentUser();
+        disorder.setBoarder(boarderRepository.findOne(idBoarder));
+        disorder.setUser(current);
+
+        if(date != null) {
+            disorder.setDate(date);
+        }
         disorder.setTimeDisorientation(timeDisorientation);
         disorder.setSpaceDisorientation(spaceDisorientation);
         disorder.setTermDifficulty(termDifficulty);
@@ -47,9 +62,13 @@ public class DisorderService {
         return new DisorderDto(disorderRepository.save(disorder));
     }
 
-    public DisorderDto update(long id, boolean timeDisorientation, boolean spaceDisorientation, boolean termDifficulty, boolean verbalDifficulty, boolean lossConcept, boolean agitated) {
+    public DisorderDto update(long id, long idBoarder, Date date, boolean timeDisorientation, boolean spaceDisorientation, boolean termDifficulty, boolean verbalDifficulty, boolean lossConcept, boolean agitated) {
         Disorder disorder = disorderRepository.findOne(id);
-
+        if(id != -1) {
+            disorder.setBoarder(boarderRepository.findOne(idBoarder));
+        }
+        if(date != null)
+            disorder.setDate(date);
         disorder.setTimeDisorientation(timeDisorientation);
         disorder.setSpaceDisorientation(spaceDisorientation);
         disorder.setTermDifficulty(termDifficulty);

@@ -10,9 +10,9 @@ import java.util.Date;
 public class InjectionDto {
 
     private long id;
-    private String boarder;
-    private String user;
-    private Date date = new Date();
+    private BoarderDto boarder;
+    private UserDto user;
+    private Date date;
     private Date dateStart;
     private Date dateEnd;
     private String doctor;
@@ -25,8 +25,10 @@ public class InjectionDto {
 
     public InjectionDto(Injection injection) {
         this.id = injection.getId();
-        this.boarder = injection.getBoarder();
-        this.user = injection.getUser();
+        if(injection.getBoarder() != null)
+            this.boarder = new BoarderDto(injection.getBoarder());
+        if(injection.getUser() != null)
+            this.user = new UserDto(injection.getUser());
         this.date = injection.getDate();
         this.dateStart = injection.getDateStart();
         this.dateEnd = injection.getDateEnd();
@@ -45,19 +47,19 @@ public class InjectionDto {
         this.id = id;
     }
 
-    public String getBoarder() {
+    public BoarderDto getBoarder() {
         return boarder;
     }
 
-    public void setBoarder(String boarder) {
+    public void setBoarder(BoarderDto boarder) {
         this.boarder = boarder;
     }
 
-    public String getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 
