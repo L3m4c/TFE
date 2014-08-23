@@ -19,7 +19,7 @@ public class Eat {
     private Date date = new Date();
     private boolean priorAid;
     private boolean fullAid;
-    private boolean stimulated;
+    private boolean eatStimulated;
     private boolean hydration;
 
     public long getId() {
@@ -70,12 +70,12 @@ public class Eat {
         this.fullAid = fullAid;
     }
 
-    public boolean isStimulated() {
-        return stimulated;
+    public boolean isEatStimulated() {
+        return eatStimulated;
     }
 
-    public void setStimulated(boolean stimulated) {
-        this.stimulated = stimulated;
+    public void setEatStimulated(boolean eatStimulated) {
+        this.eatStimulated = eatStimulated;
     }
 
     public boolean isHydration() {

@@ -15,7 +15,7 @@ public class HygieneDto {
     private Date date;
     private boolean toiletPartiel;
     private boolean toiletComplete;
-    private boolean stimulated;
+    private boolean hygieneStimulated;
     private boolean bath;
 
     public HygieneDto() {}
@@ -29,7 +29,7 @@ public class HygieneDto {
         this.date = hygiene.getDate();
         this.toiletPartiel = hygiene.isToiletPartiel();
         this.toiletComplete = hygiene.isToiletComplete();
-        this.stimulated = hygiene.isStimulated();
+        this.hygieneStimulated = hygiene.isHygieneStimulated();
         this.bath = hygiene.isBath();
 
     }
@@ -82,12 +82,12 @@ public class HygieneDto {
         this.toiletComplete = toiletComplete;
     }
 
-    public boolean isStimulated() {
-        return stimulated;
+    public boolean isHygieneStimulated() {
+        return hygieneStimulated;
     }
 
-    public void setStimulated(boolean stimulated) {
-        this.stimulated = stimulated;
+    public void setHygieneStimulated(boolean hygieneStimulated) {
+        this.hygieneStimulated = hygieneStimulated;
     }
 
     public boolean isBath() {

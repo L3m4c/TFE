@@ -18,7 +18,7 @@ public class Clothing {
     private User user;
     private Date date = new Date();
     private boolean clothingComplete;
-    private boolean stimulated;
+    private boolean clothingStimulated;
 
     public long getId() {
         return id;
@@ -60,11 +60,11 @@ public class Clothing {
         this.clothingComplete = clothingComplete;
     }
 
-    public boolean isStimulated() {
-        return stimulated;
+    public boolean isClothingStimulated() {
+        return clothingStimulated;
     }
 
-    public void setStimulated(boolean stimulated) {
-        this.stimulated = stimulated;
+    public void setClothingStimulated(boolean clothingStimulated) {
+        this.clothingStimulated = clothingStimulated;
     }
 }

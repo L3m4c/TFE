@@ -19,7 +19,7 @@ public class Hygiene {
     private Date date = new Date();
     private boolean toiletPartiel;
     private boolean toiletComplete;
-    private boolean stimulated;
+    private boolean hygieneStimulated;
     private boolean bath;
 
     public long getId() {
@@ -70,12 +70,12 @@ public class Hygiene {
         this.toiletComplete = toiletComplete;
     }
 
-    public boolean isStimulated() {
-        return stimulated;
+    public boolean isHygieneStimulated() {
+        return hygieneStimulated;
     }
 
-    public void setStimulated(boolean stimulated) {
-        this.stimulated = stimulated;
+    public void setHygieneStimulated(boolean hygieneStimulated) {
+        this.hygieneStimulated = hygieneStimulated;
     }
 
     public boolean isBath() {

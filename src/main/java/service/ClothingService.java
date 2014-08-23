@@ -42,7 +42,7 @@ public class ClothingService {
         clothingRepository.delete(id);
     }
 
-    public ClothingDto save(long idBoarder, Date date, boolean clothingComplete, boolean stimulated) {
+    public ClothingDto save(long idBoarder, Date date, boolean clothingComplete, boolean clothingStimulated) {
         Clothing clothing = new Clothing();
         User current = userService.getCurrentUser();
         clothing.setBoarder(boarderRepository.findOne(idBoarder));
@@ -52,12 +52,12 @@ public class ClothingService {
             clothing.setDate(date);
         }
         clothing.setClothingComplete(clothingComplete);
-        clothing.setStimulated(stimulated);
+        clothing.setClothingStimulated(clothingStimulated);
 
         return new ClothingDto(clothingRepository.save(clothing));
     }
 
-    public ClothingDto update(long id, long idBoarder, Date date, boolean clothingComplete, boolean stimulated) {
+    public ClothingDto update(long id, long idBoarder, Date date, boolean clothingComplete, boolean clothingStimulated) {
         Clothing clothing = clothingRepository.findOne(id);
         if(id != -1) {
             clothing.setBoarder(boarderRepository.findOne(idBoarder));
@@ -65,7 +65,7 @@ public class ClothingService {
         if(date != null)
             clothing.setDate(date);
         clothing.setClothingComplete(clothingComplete);
-        clothing.setStimulated(stimulated);
+        clothing.setClothingStimulated(clothingStimulated);
 
         return new ClothingDto(clothingRepository.save(clothing));
     }

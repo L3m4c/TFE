@@ -14,7 +14,7 @@ public class ClothingDto {
     private UserDto user;
     private Date date;
     private boolean clothingComplete;
-    private boolean stimulated;
+    private boolean clothingStimulated;
 
     public ClothingDto() {}
 
@@ -26,7 +26,7 @@ public class ClothingDto {
             this.user = new UserDto(clothing.getUser());
         this.date = clothing.getDate();
         this.clothingComplete = clothing.isClothingComplete();
-        this.stimulated = clothing.isStimulated();
+        this.clothingStimulated = clothing.isClothingStimulated();
             }
 
     public long getId() {
@@ -69,11 +69,11 @@ public class ClothingDto {
         this.clothingComplete = clothingComplete;
     }
 
-    public boolean isStimulated() {
-        return stimulated;
+    public boolean isClothingStimulated() {
+        return clothingStimulated;
     }
 
-    public void setStimulated(boolean stimulated) {
-        this.stimulated = stimulated;
+    public void setClothingStimulated(boolean clothingStimulated) {
+        this.clothingStimulated = clothingStimulated;
     }
 }

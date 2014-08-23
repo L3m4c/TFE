@@ -42,7 +42,7 @@ public class EatService {
         eatRepository.delete(id);
     }
 
-    public EatDto save(long idBoarder, Date date, boolean priorAid, boolean fullAid, boolean stimulated, boolean hydration) {
+    public EatDto save(long idBoarder, Date date, boolean priorAid, boolean fullAid, boolean eatStimulated, boolean hydration) {
         Eat eat = new Eat();
         User current = userService.getCurrentUser();
         eat.setBoarder(boarderRepository.findOne(idBoarder));
@@ -53,14 +53,14 @@ public class EatService {
         }
         eat.setPriorAid(priorAid);
         eat.setFullAid(fullAid);
-        eat.setStimulated(stimulated);
+        eat.setEatStimulated(eatStimulated);
         eat.setHydration(hydration);
 
 
         return new EatDto(eatRepository.save(eat));
     }
 
-    public EatDto update(long id, long idBoarder, Date date, boolean priorAid, boolean fullAid, boolean stimulated, boolean hydration) {
+    public EatDto update(long id, long idBoarder, Date date, boolean priorAid, boolean fullAid, boolean eatStimulated, boolean hydration) {
         Eat eat = eatRepository.findOne(id);
 
         if(id != -1) {
@@ -70,7 +70,7 @@ public class EatService {
             eat.setDate(date);
         eat.setPriorAid(priorAid);
         eat.setFullAid(fullAid);
-        eat.setStimulated(stimulated);
+        eat.setEatStimulated(eatStimulated);
         eat.setHydration(hydration);
 
         return new EatDto(eatRepository.save(eat));

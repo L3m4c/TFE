@@ -15,7 +15,7 @@ public class EatDto {
     private Date date;
     private boolean priorAid;
     private boolean fullAid;
-    private boolean stimulated;
+    private boolean eatStimulated;
     private boolean hydration;
 
     public EatDto() {}
@@ -29,7 +29,7 @@ public class EatDto {
         this.date = eat.getDate();
         this.priorAid = eat.isPriorAid();
         this.fullAid = eat.isFullAid();
-        this.stimulated = eat.isStimulated();
+        this.eatStimulated = eat.isEatStimulated();
         this.hydration = eat.isHydration();
     }
 
@@ -81,12 +81,12 @@ public class EatDto {
         this.fullAid = fullAid;
     }
 
-    public boolean isStimulated() {
-        return stimulated;
+    public boolean isEatStimulated() {
+        return eatStimulated;
     }
 
-    public void setStimulated(boolean stimulated) {
-        this.stimulated = stimulated;
+    public void setEatStimulated(boolean eatStimulated) {
+        this.eatStimulated = eatStimulated;
     }
 
     public boolean isHydration() {

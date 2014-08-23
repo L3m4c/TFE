@@ -42,7 +42,7 @@ public class HygieneService {
         hygieneRepository.delete(id);
     }
 
-    public HygieneDto save(long idBoarder, Date date, boolean toiletPartiel, boolean toiletComplete, boolean stimulated, boolean bath) {
+    public HygieneDto save(long idBoarder, Date date, boolean toiletPartiel, boolean toiletComplete, boolean hygieneStimulated, boolean bath) {
         Hygiene hygiene = new Hygiene();
         User current = userService.getCurrentUser();
         hygiene.setBoarder(boarderRepository.findOne(idBoarder));
@@ -53,14 +53,14 @@ public class HygieneService {
         }
         hygiene.setToiletPartiel(toiletPartiel);
         hygiene.setToiletComplete(toiletComplete);
-        hygiene.setStimulated(stimulated);
+        hygiene.setHygieneStimulated(hygieneStimulated);
         hygiene.setBath(bath);
 
 
         return new HygieneDto(hygieneRepository.save(hygiene));
     }
 
-    public HygieneDto update(long id, long idBoarder, Date date, boolean toiletPartiel, boolean toiletComplete, boolean stimulated, boolean bath) {
+    public HygieneDto update(long id, long idBoarder, Date date, boolean toiletPartiel, boolean toiletComplete, boolean hygieneStimulated, boolean bath) {
         Hygiene hygiene = hygieneRepository.findOne(id);
         if(id != -1) {
             hygiene.setBoarder(boarderRepository.findOne(idBoarder));
@@ -70,7 +70,7 @@ public class HygieneService {
 
         hygiene.setToiletPartiel(toiletPartiel);
         hygiene.setToiletComplete(toiletComplete);
-        hygiene.setStimulated(stimulated);
+        hygiene.setHygieneStimulated(hygieneStimulated);
         hygiene.setBath(bath);
 
         return new HygieneDto(hygieneRepository.save(hygiene));

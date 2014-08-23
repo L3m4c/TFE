@@ -26,14 +26,14 @@ public class HygieneController {
             @RequestParam(value="date", required = false) Long dateMill,
             @RequestParam(value="toiletPartiel", required = true) boolean toiletPartiel,
             @RequestParam(value="toiletComplete", required = true) boolean toiletComplete,
-            @RequestParam(value="stimulated", required = true) boolean stimulated,
+            @RequestParam(value="hygieneStimulated", required = true) boolean hygieneStimulated,
             @RequestParam(value="bath", required = true) boolean bath)
 
     { Date date = new Date();
         if(dateMill != null) {
             date.setTime(dateMill);}
 
-        return hygieneService.save(idBoarder, date, toiletPartiel, toiletComplete, stimulated, bath); }
+        return hygieneService.save(idBoarder, date, toiletPartiel, toiletComplete, hygieneStimulated, bath); }
 
     @RequestMapping(value = "/hygiene", method = RequestMethod.GET)
     public HygieneDto get(
@@ -54,12 +54,12 @@ public class HygieneController {
             @RequestParam(value="date", required = false) Date date,
             @RequestParam(value="toiletPartiel", required = false) boolean toiletPartiel,
             @RequestParam(value="toiletComplete", required = false) boolean toiletComplete,
-            @RequestParam(value="stimulated", required = false) boolean stimulated,
+            @RequestParam(value="hygieneStimulated", required = false) boolean hygieneStimulated,
             @RequestParam(value="bath", required = false) boolean bath)
 
     {
 
-        return hygieneService.update(id, idBoarder, date, toiletPartiel, toiletComplete, stimulated, bath);
+        return hygieneService.update(id, idBoarder, date, toiletPartiel, toiletComplete, hygieneStimulated, bath);
     }
 
     @RequestMapping(value = "/hygiene/all", method = RequestMethod.GET)

@@ -26,7 +26,7 @@ public class EatController {
             @RequestParam(value="date", required = false) Long dateMill,
             @RequestParam(value="priorAid", required = true) boolean priorAid,
             @RequestParam(value="fullAid", required = true) boolean fullAid,
-            @RequestParam(value="stimulated", required = true) boolean stimulated,
+            @RequestParam(value="eatStimulated", required = true) boolean eatStimulated,
             @RequestParam(value="hydration", required = true) boolean hydration)
 
     {
@@ -34,7 +34,7 @@ public class EatController {
         if(dateMill != null) {
             date.setTime(dateMill);}
 
-        return eatService.save(idBoarder, date, priorAid, fullAid, stimulated, hydration); }
+        return eatService.save(idBoarder, date, priorAid, fullAid, eatStimulated, hydration); }
 
     @RequestMapping(value = "/eat", method = RequestMethod.GET)
     public EatDto get(
@@ -55,12 +55,12 @@ public class EatController {
             @RequestParam(value="date", required = false) Date date,
             @RequestParam(value="priorAid", required = false) boolean priorAid,
             @RequestParam(value="fullAid", required = false) boolean fullAid,
-            @RequestParam(value="stimulated", required = false) boolean stimulated,
+            @RequestParam(value="eatStimulated", required = false) boolean eatStimulated,
             @RequestParam(value="hydration", required = false) boolean hydration)
 
     {
 
-        return eatService.update(id, idBoarder, date, priorAid, fullAid, stimulated, hydration);
+        return eatService.update(id, idBoarder, date, priorAid, fullAid, eatStimulated, hydration);
     }
 
     @RequestMapping(value = "/eat/all", method = RequestMethod.GET)
