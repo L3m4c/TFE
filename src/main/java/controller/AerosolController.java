@@ -50,18 +50,17 @@ public class AerosolController {
 
     @RequestMapping(value = "/aerosol", method = RequestMethod.PUT)
     public AerosolDto update(
-
             @RequestParam(value = "id", required = true) long id,
             @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
-            @RequestParam(value="date", required = false) Date date,
-            @RequestParam(value="dateStart", required = false) Date dateStart,
-            @RequestParam(value="dateEnd", required = false) Date dateEnd,
+            @RequestParam(value="date", required = false) long date,
             @RequestParam(value="doctor", required = false) String doctor,
             @RequestParam(value="nameMedic", required = false, defaultValue = "-1") String nameMedic,
             @RequestParam(value="dosage", required = false, defaultValue = "-1") int dosage,
             @RequestParam(value="unit", required = false, defaultValue = "-1") String unit){
 
-        return aerosolService.update(id, idBoarder, date, dateStart, dateEnd, doctor, nameMedic, dosage, unit);
+        Date dateFormat = new Date();
+        dateFormat.setTime(date);
+        return aerosolService.update(id, idBoarder, dateFormat, null, null, doctor, nameMedic, dosage, unit);
     }
 
     @RequestMapping(value = "/aerosol/all", method = RequestMethod.GET)
