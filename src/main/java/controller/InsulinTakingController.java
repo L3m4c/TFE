@@ -48,11 +48,13 @@ public class InsulinTakingController {
     @RequestMapping(value = "/insulinTaking", method = RequestMethod.PUT)
     public InsulinTakingDto update(
             @RequestParam(value = "id", required = true) long id,
-        @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
-        @RequestParam(value="date", required = false) Date date,
+        @RequestParam(value="boarder", required = false) long idBoarder,
+        @RequestParam(value="date", required = false) long date,
         @RequestParam(value="glycemia", required = false) int glycemia){
 
-        return insulinTakingService.update(id, idBoarder, date, glycemia);
+        Date dateFormat = new Date();
+        dateFormat.setTime(date);
+        return insulinTakingService.update(id, idBoarder, dateFormat, glycemia);
     }
 
     @RequestMapping(value = "/insulinTaking/all", method = RequestMethod.GET)

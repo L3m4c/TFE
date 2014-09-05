@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import service.MeasureService;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,14 +22,19 @@ public class MeasureController {
 
     @RequestMapping(value = "/measure", method = RequestMethod.POST)
     public MeasureDto create(
+            @RequestParam(value="boarder", required = true) long idBoarder,
+            @RequestParam(value="date", required = false) Long dateMill,
             @RequestParam(value="size", required = true) int size,
             @RequestParam(value="depth", required = true) int depth,
             @RequestParam(value="quantity", required = true) String quantity,
             @RequestParam(value="nature", required = true) String nature,
             @RequestParam(value="odor", required = true) boolean odor)
 
-    {
-        return measureService.save(size, depth, quantity, nature, odor); }
+    {Date date = new Date();
+        if(dateMill != null) {
+            date.setTime(dateMill);}
+
+        return measureService.save(idBoarder, date, size, depth, quantity, nature, odor); }
 
     @RequestMapping(value = "/measure", method = RequestMethod.GET)
     public MeasureDto get(
@@ -45,6 +51,8 @@ public class MeasureController {
     @RequestMapping(value = "/measure", method = RequestMethod.PUT)
     public MeasureDto update(
             @RequestParam(value = "id", required = true) long id,
+            @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
+            @RequestParam(value="date", required = false) Date date,
             @RequestParam(value="size", required = true) int size,
             @RequestParam(value="depth", required = true) int depth,
             @RequestParam(value="quantity", required = true) String quantity,
@@ -53,7 +61,7 @@ public class MeasureController {
 
     {
 
-        return measureService.update(id, size, depth, quantity, nature, odor);
+        return measureService.update(id, idBoarder, date, size, depth, quantity, nature, odor);
     }
 
     @RequestMapping(value = "/measure/all", method = RequestMethod.GET)

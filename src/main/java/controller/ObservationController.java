@@ -46,11 +46,14 @@ public class ObservationController {
     @RequestMapping(value = "/observation", method = RequestMethod.PUT)
     public ObservationDto update(
             @RequestParam(value = "id", required = true) long id,
-            @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
-            @RequestParam(value="date", required = false) Date date,
-            @RequestParam(value="comment", required = false, defaultValue = "-1") String comment){
+            @RequestParam(value="boarder", required = false) long idBoarder,
+            @RequestParam(value="date", required = false) long date,
+            @RequestParam(value="comment", required = false) String comment){
 
-        return observationService.update(id, idBoarder, date, comment);
+
+        Date dateFormat = new Date();
+        dateFormat.setTime(date);
+        return observationService.update(id, idBoarder, dateFormat, comment);
     }
 
     @RequestMapping(value = "/observation/all", method = RequestMethod.GET)

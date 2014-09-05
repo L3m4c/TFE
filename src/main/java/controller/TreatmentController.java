@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import service.TreatmentService;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,16 +22,21 @@ public class TreatmentController {
 
     @RequestMapping(value = "/treatment", method = RequestMethod.POST)
     public TreatmentDto create(
+            @RequestParam(value="boarder", required = true) long idBoarder,
+            @RequestParam(value="date", required = false) Long dateMill,
             @RequestParam(value="pst", required = true) boolean pst,
             @RequestParam(value="irrigation", required = true) boolean irrigation,
             @RequestParam(value="therapeuticBath", required = true) boolean therapeuticBath,
             @RequestParam(value="drillWidth", required = true) int drillWidth,
             @RequestParam(value="drillLength", required = true) int drillLength,
             @RequestParam(value="debridement", required = true) boolean debridement,
-            @RequestParam(value="other", required = true) String other)
+            @RequestParam(value="treatmentOther", required = true) String treatmentOther)
 
-    {
-        return treatmentService.save(pst, irrigation, therapeuticBath, drillWidth, drillLength, debridement, other); }
+    {Date date = new Date();
+        if(dateMill != null) {
+            date.setTime(dateMill);}
+
+        return treatmentService.save(idBoarder, date, pst, irrigation, therapeuticBath, drillWidth, drillLength, debridement, treatmentOther); }
 
     @RequestMapping(value = "/treatment", method = RequestMethod.GET)
     public TreatmentDto get(
@@ -47,17 +53,19 @@ public class TreatmentController {
     @RequestMapping(value = "/treatment", method = RequestMethod.PUT)
     public TreatmentDto update(
             @RequestParam(value = "id", required = true) long id,
+            @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
+            @RequestParam(value="date", required = false) Date date,
             @RequestParam(value="pst", required = true) boolean pst,
             @RequestParam(value="irrigation", required = true) boolean irrigation,
             @RequestParam(value="therapeuticBath", required = true) boolean therapeuticBath,
             @RequestParam(value="drillWidth", required = true) int drillWidth,
             @RequestParam(value="drillLength", required = true) int drillLength,
             @RequestParam(value="debridement", required = true) boolean debridement,
-            @RequestParam(value="other", required = true) String other)
+            @RequestParam(value="treatmentOther", required = true) String treatmentOther)
 
     {
 
-        return treatmentService.update(id, pst, irrigation, therapeuticBath, drillWidth, drillLength, debridement, other);
+        return treatmentService.update(id, idBoarder, date, pst, irrigation, therapeuticBath, drillWidth, drillLength, debridement, treatmentOther);
     }
 
     @RequestMapping(value = "/treatment/all", method = RequestMethod.GET)

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import service.SurroundingSkinService;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +22,8 @@ public class SurroundingSkinController {
 
     @RequestMapping(value = "/surroundingSkin", method = RequestMethod.POST)
     public SurroundingSkinDto create(
+            @RequestParam(value="boarder", required = true) long idBoarder,
+            @RequestParam(value="date", required = false) Long dateMill,
             @RequestParam(value="healthy", required = true) boolean healthy,
             @RequestParam(value="fragile", required = true) boolean fragile,
             @RequestParam(value="dry", required = true) boolean dry,
@@ -30,8 +33,11 @@ public class SurroundingSkinController {
             @RequestParam(value="macerated", required = true) boolean macerated,
             @RequestParam(value="ulcerated", required = true) boolean ulcerated)
 
-    {
-        return surroundingSkinService.save(healthy, fragile, dry, hyperpigmented, hyperkeration, inflammatory, macerated, ulcerated); }
+    {Date date = new Date();
+        if(dateMill != null) {
+            date.setTime(dateMill);}
+
+        return surroundingSkinService.save(idBoarder, date, healthy, fragile, dry, hyperpigmented, hyperkeration, inflammatory, macerated, ulcerated); }
 
     @RequestMapping(value = "/surroundingSkin", method = RequestMethod.GET)
     public SurroundingSkinDto get(
@@ -48,6 +54,8 @@ public class SurroundingSkinController {
     @RequestMapping(value = "/surroundingSkin", method = RequestMethod.PUT)
     public SurroundingSkinDto update(
             @RequestParam(value = "id", required = true) long id,
+            @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
+            @RequestParam(value="date", required = false) Date date,
             @RequestParam(value="healthy", required = true) boolean healthy,
             @RequestParam(value="fragile", required = true) boolean fragile,
             @RequestParam(value="dry", required = true) boolean dry,
@@ -59,7 +67,7 @@ public class SurroundingSkinController {
 
     {
 
-        return surroundingSkinService.update(id, healthy, fragile, dry, hyperpigmented, hyperkeration, inflammatory, macerated, ulcerated);
+        return surroundingSkinService.update(id, idBoarder, date, healthy, fragile, dry, hyperpigmented, hyperkeration, inflammatory, macerated, ulcerated);
     }
 
     @RequestMapping(value = "/surroundingSkin/all", method = RequestMethod.GET)

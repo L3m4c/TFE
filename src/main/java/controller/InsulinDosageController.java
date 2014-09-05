@@ -50,10 +50,12 @@ public class InsulinDosageController {
     public InsulinDosageDto update(
             @RequestParam(value = "id", required = true) long id,
             @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
-            @RequestParam(value="date", required = false) Date date,
+            @RequestParam(value="date", required = false) long date,
             @RequestParam(value="dosage", required = false) int dosage){
 
-        return insulinDosageService.update(id, idBoarder, date, dosage);
+        Date dateFormat = new Date();
+        dateFormat.setTime(date);
+        return insulinDosageService.update(id, idBoarder, dateFormat, dosage);
     }
 
     @RequestMapping(value = "/insulinDosage/all", method = RequestMethod.GET)

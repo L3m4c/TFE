@@ -49,16 +49,17 @@ public class TherapeuticController {
     @RequestMapping(value = "/therapeutic", method = RequestMethod.PUT)
     public TherapeuticDto update(
             @RequestParam(value = "id", required = true) long id,
-            @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
-            @RequestParam(value="date", required = false) Date date,
+            @RequestParam(value="boarder", required = false) long idBoarder,
+            @RequestParam(value="date", required = false) long date,
             @RequestParam(value="preparation", required = false) boolean preparation,
             @RequestParam(value="adMorning", required = false) boolean adMorning,
             @RequestParam(value="adMidday", required = false) boolean adMidday,
             @RequestParam(value="adEvening", required = false) boolean adEvening,
             @RequestParam(value="adNight", required = false) boolean adNight)
     {
-
-        return therapeuticService.update(id, idBoarder, date, preparation, adMorning, adMidday, adEvening, adNight);
+        Date dateFormat = new Date();
+        dateFormat.setTime(date);
+        return therapeuticService.update(id, idBoarder, dateFormat, preparation, adMorning, adMidday, adEvening, adNight);
     }
 
     @RequestMapping(value = "/therapeutic/all", method = RequestMethod.GET)

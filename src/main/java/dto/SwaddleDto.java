@@ -1,7 +1,6 @@
 package dto;
 
 import entity.Swaddle;
-import java.util.Date;
 
 /**
  * Created by Dams on 1/07/2014.
@@ -10,7 +9,7 @@ public class SwaddleDto {
     private long id;
     private BoarderDto boarder;
     private UserDto user;
-    private Date date;
+    private long date;
 
     public SwaddleDto() {}
 
@@ -20,7 +19,7 @@ public class SwaddleDto {
             this.boarder = new BoarderDto(swaddle.getBoarder());
         if(swaddle.getUser() != null)
             this.user = new UserDto(swaddle.getUser());
-        this.date = swaddle.getDate();
+        this.date = swaddle.getDate().getTime();
     }
 
     public long getId() {
@@ -47,11 +46,11 @@ public class SwaddleDto {
         this.user = user;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
     }
 }

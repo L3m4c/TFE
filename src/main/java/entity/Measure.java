@@ -1,9 +1,7 @@
 package entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Dams on 11/08/2014.
@@ -14,6 +12,11 @@ public class Measure {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
+    @ManyToOne
+    private Boarder boarder;
+    @ManyToOne
+    private User user;
+    private Date date = new Date();
     private int size;
     private int depth;
     private String quantity;
@@ -26,6 +29,30 @@ public class Measure {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Boarder getBoarder() {
+        return boarder;
+    }
+
+    public void setBoarder(Boarder boarder) {
+        this.boarder = boarder;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getSize() {

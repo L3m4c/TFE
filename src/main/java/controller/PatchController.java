@@ -51,16 +51,18 @@ public class PatchController {
     @RequestMapping(value = "/patch", method = RequestMethod.PUT)
     public PatchDto update(
             @RequestParam(value = "id", required = true) long id,
-            @RequestParam(value="boarder", required = false, defaultValue = "-1") long idBoarder,
-            @RequestParam(value="date", required = false) Date date,
+            @RequestParam(value="boarder", required = false) long idBoarder,
+            @RequestParam(value="date", required = false) long date,
             @RequestParam(value="dateStart", required = false) Date dateStart,
             @RequestParam(value="dateEnd", required = false) Date dateEnd,
             @RequestParam(value="doctor", required = false) String doctor,
-            @RequestParam(value="nameMedic", required = false, defaultValue = "-1") String nameMedic,
-            @RequestParam(value="dosage", required = false, defaultValue = "-1") int dosage,
-            @RequestParam(value="unit", required = false, defaultValue = "-1") String unit){
+            @RequestParam(value="nameMedic", required = false) String nameMedic,
+            @RequestParam(value="dosage", required = false) int dosage,
+            @RequestParam(value="unit", required = false) String unit){
 
-        return patchService.update(id, idBoarder, date, dateStart, dateEnd, doctor, nameMedic, dosage, unit);
+        Date dateFormat = new Date();
+        dateFormat.setTime(date);
+        return patchService.update(id, idBoarder, dateFormat, dateStart, dateEnd, doctor, nameMedic, dosage, unit);
     }
 
     @RequestMapping(value = "/patch/all", method = RequestMethod.GET)

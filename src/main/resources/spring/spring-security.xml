@@ -22,7 +22,7 @@
                                authorities-by-username-query=
                                        "select username, role from user where username =?  " /> -->
             <user-service>
-                <user name="sam" password="sam" authorities="ROLE_USER" />
+                <user name="dam" password="dam" authorities="ROLE_USER" />
             </user-service>
         </authentication-provider>
     </authentication-manager>

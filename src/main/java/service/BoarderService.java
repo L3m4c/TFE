@@ -34,22 +34,37 @@ public class BoarderService {
         boarderRepository.delete(id);
     }
 
-    public BoarderDto save(int chambre, String name , String surname) {
+    public BoarderDto save(int room, String name , String surname, int age, String dateBirth, String mutuel, String personResponsible, String phone) {
         Boarder boarder = new Boarder();
-        boarder.setRoom(chambre);
+        boarder.setRoom(room);
         boarder.setName(name);
         boarder.setSurname(surname);
+        boarder.setAge(age);
+        boarder.setDateBirth(dateBirth);
+        boarder.setMutuel(mutuel);
+        boarder.setPersonResponsible(personResponsible);
+        boarder.setPhone(phone);
         return new BoarderDto(boarderRepository.save(boarder));
     }
 
-    public BoarderDto update(long id, int chambre, String name, String surname) {
+    public BoarderDto update(long id, int room, String name, String surname, int age, String dateBirth, String mutuel, String personResponsible, String phone) {
         Boarder boarder = boarderRepository.findOne(id);
         if(id!=-1)
-            boarder.setRoom(chambre);
+            boarder.setRoom(room);
         if(name != null)
             boarder.setName(name);
         if(surname != null)
         boarder.setSurname(surname);
+        if(age != 0)
+            boarder.setAge(age);
+        if(dateBirth != null)
+            boarder.setDateBirth(dateBirth);
+        if(mutuel != null)
+            boarder.setMutuel(mutuel);
+        if(personResponsible != null)
+            boarder.setPersonResponsible(personResponsible);
+        if(phone != null)
+            boarder.setPhone(phone);
         return new BoarderDto(boarderRepository.save(boarder));
     }
 }

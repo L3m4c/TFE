@@ -67,6 +67,7 @@ public class TherapeuticService {
         }
         if(date != null)
             therapeutic.setDate(date);
+
             therapeutic.setPreparation(preparation);
 
             therapeutic.setAdMorning(adMorning);

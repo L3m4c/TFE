@@ -20,8 +20,6 @@ public class SwaddleService {
     SwaddleRepository swaddleRepository;
     @Resource
     BoarderRepository boarderRepository;
-    @Resource
-    UserRepository userRepository;
     @Autowired
     UserService userService;
 

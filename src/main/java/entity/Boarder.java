@@ -16,6 +16,11 @@ public class Boarder {
     private String name;
     private String surname;
     private int room;
+    private int age;
+    private String dateBirth;
+    private String mutuel;
+    private String personResponsible;
+    private String phone;
 
     public long getId() {
         return id;
@@ -47,5 +52,45 @@ public class Boarder {
 
     public void setRoom(int room) {
         this.room = room;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getDateBirth() {
+        return dateBirth;
+    }
+
+    public void setDateBirth(String dateBirth) {
+        this.dateBirth = dateBirth;
+    }
+
+    public String getMutuel() {
+        return mutuel;
+    }
+
+    public void setMutuel(String mutuel) {
+        this.mutuel = mutuel;
+    }
+
+    public String getPersonResponsible() {
+        return personResponsible;
+    }
+
+    public void setPersonResponsible(String personResponsible) {
+        this.personResponsible = personResponsible;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

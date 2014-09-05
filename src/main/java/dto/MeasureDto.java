@@ -2,12 +2,17 @@ package dto;
 
 import entity.Measure;
 
+import java.util.Date;
+
 /**
  * Created by Dams on 11/08/2014.
  */
 public class MeasureDto {
 
     private long id;
+    private BoarderDto boarder;
+    private UserDto user;
+    private Date date;
     private int size;
     private int depth;
     private String quantity;
@@ -18,6 +23,11 @@ public class MeasureDto {
 
     public MeasureDto(Measure measure) {
         this.id = measure.getId();
+        if(measure.getBoarder() != null)
+            this.boarder = new BoarderDto(measure.getBoarder());
+        if(measure.getUser() != null)
+            this.user = new UserDto(measure.getUser());
+        this.date = measure.getDate();
         this.size = measure.getSize();
         this.depth = measure.getDepth();
         this.quantity = measure.getQuantity();
@@ -31,6 +41,30 @@ public class MeasureDto {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public BoarderDto getBoarder() {
+        return boarder;
+    }
+
+    public void setBoarder(BoarderDto boarder) {
+        this.boarder = boarder;
+    }
+
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getSize() {

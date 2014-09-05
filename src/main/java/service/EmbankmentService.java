@@ -1,11 +1,15 @@
 package service;
 
 import dto.EmbankmentDto;
+import entity.BoarderRepository;
 import entity.Embankment;
 import entity.EmbankmentRepository;
+import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,6 +21,10 @@ public class EmbankmentService {
 
     @Resource
     EmbankmentRepository embankmentRepository;
+    @Resource
+    BoarderRepository boarderRepository;
+    @Autowired
+    UserService userService;
 
     public List<EmbankmentDto> findAll() {
         Iterator i = embankmentRepository.findAll().iterator();
@@ -35,8 +43,15 @@ public class EmbankmentService {
         embankmentRepository.delete(id);
     }
 
-    public EmbankmentDto save(boolean regular, boolean irregular, boolean furrow, boolean detachment, boolean budding) {
+    public EmbankmentDto save(long idBoarder, Date date, boolean regular, boolean irregular, boolean furrow, boolean detachment, boolean budding) {
         Embankment embankment = new Embankment();
+        User current = userService.getCurrentUser();
+        embankment.setBoarder(boarderRepository.findOne(idBoarder));
+        embankment.setUser(current);
+
+        if(date != null) {
+            embankment.setDate(date);
+        }
         embankment.setRegular(regular);
         embankment.setIrregular(irregular);
         embankment.setFurrow(furrow);
@@ -47,9 +62,13 @@ public class EmbankmentService {
         return new EmbankmentDto(embankmentRepository.save(embankment));
     }
 
-    public EmbankmentDto update(long id, boolean regular, boolean irregular, boolean furrow, boolean detachment, boolean budding) {
+    public EmbankmentDto update(long id, long idBoarder, Date date, boolean regular, boolean irregular, boolean furrow, boolean detachment, boolean budding) {
         Embankment embankment = embankmentRepository.findOne(id);
-
+        if(id != -1) {
+            embankment.setBoarder(boarderRepository.findOne(idBoarder));
+        }
+        if(date != null)
+            embankment.setDate(date);
         embankment.setRegular(regular);
         embankment.setIrregular(irregular);
         embankment.setFurrow(furrow);

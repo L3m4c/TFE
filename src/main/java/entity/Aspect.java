@@ -1,9 +1,7 @@
 package entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Dams on 11/08/2014.
@@ -14,11 +12,16 @@ public class Aspect {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
+    @ManyToOne
+    private Boarder boarder;
+    @ManyToOne
+    private User user;
+    private Date date = new Date();
     private boolean redness;
     private boolean fibrin;
     private boolean necrosis;
     private boolean pink;
-    private String other;
+    private String aspectOther;
 
     public long getId() {
         return id;
@@ -60,11 +63,35 @@ public class Aspect {
         this.pink = pink;
     }
 
-    public String getOther() {
-        return other;
+    public Boarder getBoarder() {
+        return boarder;
     }
 
-    public void setOther(String other) {
-        this.other = other;
+    public void setBoarder(Boarder boarder) {
+        this.boarder = boarder;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getAspectOther() {
+        return aspectOther;
+    }
+
+    public void setAspectOther(String aspectOther) {
+        this.aspectOther = aspectOther;
     }
 }

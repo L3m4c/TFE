@@ -1,11 +1,15 @@
 package service;
 
 import dto.MeasureDto;
+import entity.BoarderRepository;
 import entity.Measure;
 import entity.MeasureRepository;
+import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,6 +21,10 @@ public class MeasureService {
 
     @Resource
     MeasureRepository measureRepository;
+    @Resource
+    BoarderRepository boarderRepository;
+    @Autowired
+    UserService userService;
 
     public List<MeasureDto> findAll() {
         Iterator i = measureRepository.findAll().iterator();
@@ -35,8 +43,15 @@ public class MeasureService {
         measureRepository.delete(id);
     }
 
-    public MeasureDto save(int size, int depth, String quantity, String nature, boolean odor) {
+    public MeasureDto save(long idBoarder, Date date, int size, int depth, String quantity, String nature, boolean odor) {
         Measure measure = new Measure();
+        User current = userService.getCurrentUser();
+        measure.setBoarder(boarderRepository.findOne(idBoarder));
+        measure.setUser(current);
+
+        if(date != null) {
+            measure.setDate(date);
+        }
         measure.setSize(size);
         measure.setDepth(depth);
         measure.setQuantity(quantity);
@@ -46,9 +61,13 @@ public class MeasureService {
         return new MeasureDto(measureRepository.save(measure));
     }
 
-    public MeasureDto update(long id, int size, int depth, String quantity, String nature, boolean odor) {
+    public MeasureDto update(long id, long idBoarder, Date date, int size, int depth, String quantity, String nature, boolean odor) {
         Measure measure = measureRepository.findOne(id);
-
+        if(id != -1) {
+            measure.setBoarder(boarderRepository.findOne(idBoarder));
+        }
+        if(date != null)
+            measure.setDate(date);
         measure.setSize(size);
         measure.setDepth(depth);
         measure.setQuantity(quantity);
